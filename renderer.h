@@ -38,9 +38,13 @@ class Renderer
 	// TODO: Part 1c
 	// TODO: Part 2a
 	// TODO: Part 2b
+		// TODO: Part 3a
+		// TODO: Part 3f 
+	// TODO: Part 2c // TODO: Part 4y
 	// TODO: Part 2e
 	// TODO: Part 2f
-	// TODO: Part 3a
+	// TODO: Part 2g
+	// TODO: Part 3c
 	// TODO: Part 3d
 	// TODO: Part 4a
 
@@ -53,6 +57,7 @@ public:
 		// TODO: Part 2a
 		// TODO: Part 2e
 		// TODO: Part 3a
+		// TODO: Part 3c
 		// TODO: Part 3d
 		// TODO: Part 4a
 
@@ -72,6 +77,10 @@ private:
 	{
 		GetHandlesFromSurface();
 		InitializeVertexBuffer();
+		// TODO: Part 2d
+		// TODO: Part 2f // TODO: Part 4y
+		// TODO: Part 2g // TODO: Part 4y
+		// TODO: Part 2h // TODO: Part 4y
 		CompileShaders();
 		InitializeGraphicsPipeline();
 	}
@@ -124,7 +133,7 @@ private:
 	{
 		shaderc_compile_options_t retval = shaderc_compile_options_initialize();
 		shaderc_compile_options_set_source_language(retval, shaderc_source_language_hlsl);
-		shaderc_compile_options_set_invert_y(retval, true);	// TODO: Part 3c
+		shaderc_compile_options_set_invert_y(retval, true);	// TODO: Part 3e
 #ifndef NDEBUG
 		shaderc_compile_options_set_generate_debug_info(retval);
 #endif
@@ -401,13 +410,14 @@ private:
 
 	void CreatePipelineLayout()
 	{
-		// TODO: Part 2c
+		// TODO: Part 2e
+		
 		VkPipelineLayoutCreateInfo pipeline_layout_create_info = {};
 		pipeline_layout_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		pipeline_layout_create_info.setLayoutCount = 0;
-		pipeline_layout_create_info.pSetLayouts = VK_NULL_HANDLE;
-		pipeline_layout_create_info.pushConstantRangeCount = 0; // TODO: Part 2c 
-		pipeline_layout_create_info.pPushConstantRanges = nullptr; // TODO: Part 2c
+		pipeline_layout_create_info.setLayoutCount = 0; // TODO: Part 2e
+		pipeline_layout_create_info.pSetLayouts = VK_NULL_HANDLE; // TODO: Part 2e
+		pipeline_layout_create_info.pushConstantRangeCount = 0; 
+		pipeline_layout_create_info.pPushConstantRanges = nullptr;
 
 		vkCreatePipelineLayout(device, &pipeline_layout_create_info, nullptr, &pipelineLayout);
 	}
@@ -427,15 +437,13 @@ public:
 	void Render()
 	{
 		VkCommandBuffer commandBuffer = GetCurrentCommandBuffer();
+		// TODO: Part 4x
 		SetUpPipeline(commandBuffer);
 
 		// TODO: Part 2b
-		// TODO: Part 2d
-		// TODO: Part 2f
-		// TODO: Part 3a
-		// TODO: Part 3b
-		// TODO: Part 3e
+		// TODO: Part 2i // TODO: Part 4y
 
+		// TODO: Part 3g
 		vkCmdDraw(commandBuffer, 3, 1, 0, 0); // TODO: Part 1b 
 	}
 
@@ -494,6 +502,8 @@ private:
 		// Release allocated buffers, shaders & pipeline
 		vkDestroyBuffer(device, vertexHandle, nullptr);
 		vkFreeMemory(device, vertexData, nullptr);
+		// TODO: Part 2d
+		// TODO: Part 2f
 		vkDestroyShaderModule(device, vertexShader, nullptr);
 		vkDestroyShaderModule(device, fragmentShader, nullptr);
 		vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
