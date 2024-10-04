@@ -34,12 +34,13 @@ int main()
 	{
 		// TODO: Part 1a
 		VkClearValue clrAndDepth[2];
-		clrAndDepth[0].color = { {0.75f, 0, 0, 1} }; // TODO: Part 1a (optional)
+		clrAndDepth[0].color = { { 0.1f, 0.1f, 0.1f, 1} }; // TODO: Part 1a (optional)
 		clrAndDepth[1].depthStencil = { 1.0f, 0u };
 		msgs.Create([&](const GW::GEvent& e) {
 			GW::SYSTEM::GWindow::Events q;
 			if (+e.Read(q) && q == GWindow::Events::RESIZE)
 				clrAndDepth[0].color.float32[2] += 0.01f; 
+			win.SetWindowName("Natalie Lubahn - Lab 3 - Vulkan");
 			});
 		win.Register(msgs);
 #ifndef NDEBUG
