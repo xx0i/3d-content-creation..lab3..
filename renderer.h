@@ -591,6 +591,17 @@ private:
 		vkDestroyBuffer(device, vertexHandle, nullptr);
 		vkFreeMemory(device, vertexData, nullptr);
 		// TODO: Part 2d
+		for (int i = 0; i < uniformBufferHandle.size(); i++)
+		{
+			vkDestroyBuffer(device, uniformBufferHandle[i], nullptr);
+			uniformBufferHandle[i] = nullptr;
+
+			vkFreeMemory(device, uniformBufferData[i], nullptr);
+			uniformBufferData[i] = nullptr;
+		}
+		uniformBufferHandle.clear();
+		uniformBufferData.clear();
+
 		// TODO: Part 2f
 		vkDestroyShaderModule(device, vertexShader, nullptr);
 		vkDestroyShaderModule(device, fragmentShader, nullptr);
