@@ -107,32 +107,32 @@ private:
 		int step = 0.04f;
 		for (int i = 0; i <= 25; i++)//horizontal lines
 		{
-			float y = -0.5f + i * step;
+			float z = -0.5f + i * step;
 			verts[index].x = -0.5f;
-			verts[index].y = y;
-			verts[index].z = 0.0f;
+			verts[index].y = 0.0f;
+			verts[index].z = z;
 			verts[index].w = 1.0f;
 			index++;
 
 			verts[index].x = 0.5f;
-			verts[index].y = y;
-			verts[index].z = 0.0f;
+			verts[index].y = 0.0f;
+			verts[index].z = z;
 			verts[index].w = 1.0f;
 			index++;
 		}
 
 		for (int i = 0; i <= 25; i++) //vertical lines
 		{ 
-			float z = -0.5f + i * step;
-			verts[index].x = 0.0f;
+			float x = -0.5f + i * step;
+			verts[index].x = x;
 			verts[index].y = -0.5f;
-			verts[index].z = z;
+			verts[index].z = 0.0f;
 			verts[index].w = 1.0f;
 			index++;
 
-			verts[index].x = 0.0f;
+			verts[index].x = x;
 			verts[index].y = 0.5f;
-			verts[index].z = z;
+			verts[index].z = 0.0f;
 			verts[index].w = 1.0f;
 			index++;
 		}
