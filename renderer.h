@@ -101,6 +101,8 @@ private:
 		{
 			0,   0.5f,
 			0.5f, -0.5f,
+			0.5f, -0.5f,
+			-0.5f, -0.5f,
 			-0.5f, -0.5f,
 			0,   0.5f
 		};
@@ -445,7 +447,7 @@ public:
 		// TODO: Part 2i // TODO: Part 4y
 
 		// TODO: Part 3g
-		vkCmdDraw(commandBuffer, 4, 1, 0, 0); // TODO: Part 1b 
+		vkCmdDraw(commandBuffer, 6, 1, 0, 0); // TODO: Part 1b 
 	}
 
 	// TODO: Part 4b
