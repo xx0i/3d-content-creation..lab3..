@@ -94,6 +94,7 @@ private:
 		GetHandlesFromSurface();
 		InitializeVertexBuffer();
 		// TODO: Part 2d
+		initializeUniformBuffer();
 		// TODO: Part 2f // TODO: Part 4y
 		// TODO: Part 2g // TODO: Part 4y
 		// TODO: Part 2h // TODO: Part 4y
@@ -149,6 +150,30 @@ private:
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
 			&vertexHandle, &vertexData);
 		GvkHelper::write_to_buffer(device, vertexData, data, sizeInBytes); // Transfer triangle data to the vertex buffer. (staging would be prefered here)
+	}
+
+	//part 2d
+	void initializeUniformBuffer()
+	{
+		VkDeviceSize bufferSize = sizeof(shaderVars);  // Size of uniform data
+
+		// Get the number of in-flight frames (i.e., swap chain images)
+		uint32_t imageCount;
+		vlk.GetSwapchainImageCount(imageCount);
+
+		// Resize vectors to hold uniform buffer handles for each frame
+		uniformBufferHandle.resize(imageCount);
+		uniformBufferData.resize(imageCount);
+
+		// Loop through each in-flight frame and create a uniform buffer for each
+		for (size_t i = 0; i < imageCount; i++) {
+			GvkHelper::create_buffer(
+				physicalDevice, device, bufferSize,
+				VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+				VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+				&uniformBufferHandle[i], &uniformBufferData[i]
+			);
+		}
 	}
 
 	void CompileShaders()
