@@ -101,7 +101,8 @@ private:
 		{
 			0,   0.5f,
 			0.5f, -0.5f,
-			-0.5f, -0.5f
+			-0.5f, -0.5f,
+			0,   0.5f
 		};
 
 		CreateVertexBuffer(&verts[0], sizeof(verts));
@@ -266,7 +267,7 @@ private:
 	{
 		VkPipelineInputAssemblyStateCreateInfo retval = {};
 		retval.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-		retval.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST; // TODO: Part 1b
+		retval.topology = VK_PRIMITIVE_TOPOLOGY_LINE_LIST; // TODO: Part 1b
 		retval.primitiveRestartEnable = false;
 		return retval;
 	}
@@ -444,7 +445,7 @@ public:
 		// TODO: Part 2i // TODO: Part 4y
 
 		// TODO: Part 3g
-		vkCmdDraw(commandBuffer, 3, 1, 0, 0); // TODO: Part 1b 
+		vkCmdDraw(commandBuffer, 4, 1, 0, 0); // TODO: Part 1b 
 	}
 
 	// TODO: Part 4b
