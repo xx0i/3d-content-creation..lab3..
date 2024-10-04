@@ -57,6 +57,8 @@ class Renderer
 	std::vector<VkDeviceMemory> uniformBufferData;
 
 	// TODO: Part 2e
+	VkDescriptorSetLayout descriptorSetLayout = nullptr;
+
 	// TODO: Part 2f
 	// TODO: Part 2g
 	// TODO: Part 3c
@@ -72,6 +74,7 @@ public:
 		// TODO: Part 2a
 		interfaceProxy.Create();
 		// TODO: Part 2e
+		
 		// TODO: Part 3a
 		// TODO: Part 3c
 		// TODO: Part 3d
@@ -471,8 +474,8 @@ private:
 		
 		VkPipelineLayoutCreateInfo pipeline_layout_create_info = {};
 		pipeline_layout_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		pipeline_layout_create_info.setLayoutCount = 0; // TODO: Part 2e
-		pipeline_layout_create_info.pSetLayouts = VK_NULL_HANDLE; // TODO: Part 2e
+		pipeline_layout_create_info.setLayoutCount = 1; // TODO: Part 2e
+		pipeline_layout_create_info.pSetLayouts = &descriptorSetLayout; // TODO: Part 2e
 		pipeline_layout_create_info.pushConstantRangeCount = 0; 
 		pipeline_layout_create_info.pPushConstantRanges = nullptr;
 
@@ -594,15 +597,15 @@ private:
 		for (int i = 0; i < uniformBufferHandle.size(); i++)
 		{
 			vkDestroyBuffer(device, uniformBufferHandle[i], nullptr);
-			uniformBufferHandle[i] = nullptr;
 
 			vkFreeMemory(device, uniformBufferData[i], nullptr);
-			uniformBufferData[i] = nullptr;
 		}
 		uniformBufferHandle.clear();
 		uniformBufferData.clear();
 
 		// TODO: Part 2f
+		vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
+
 		vkDestroyShaderModule(device, vertexShader, nullptr);
 		vkDestroyShaderModule(device, fragmentShader, nullptr);
 		vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
