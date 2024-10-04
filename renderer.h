@@ -105,35 +105,34 @@ private:
 		vertex verts[104]{};
 		int index = 0;
 		int step = 0.04f;
-		for (int i = 0; i <= 25; i++) {
+		for (int i = 0; i <= 25; i++)//horizontal lines
+		{
 			float y = -0.5f + i * step;
-
-			verts[index].x = 0.0f;      // x remains constant
-			verts[index].y = y;         // y varies
-			verts[index].z = -0.5f;     // start at -0.5 on z
+			verts[index].x = -0.5f;
+			verts[index].y = y;
+			verts[index].z = 0.0f;
 			verts[index].w = 1.0f;
 			index++;
 
-			verts[index].x = 0.0f;      // x remains constant
-			verts[index].y = y;         // y varies
-			verts[index].z = 0.5f;      // end at 0.5 on z
+			verts[index].x = 0.5f;
+			verts[index].y = y;
+			verts[index].z = 0.0f;
 			verts[index].w = 1.0f;
 			index++;
 		}
 
-		// Horizontal lines (Z axis)
-		for (int i = 0; i <= 25; i++) {
-			float z = -0.5f + i * step;
-
-			verts[index].x = 0.0f;      // x remains constant
-			verts[index].y = -0.5f;     // start at -0.5 on y
-			verts[index].z = z;         // z varies
+		for (int i = 0; i <= 25; i++) //vertical lines
+		{ 
+			float x = -0.5f + i * step;
+			verts[index].x = x;
+			verts[index].y = -0.5f;
+			verts[index].z = 0.0f;
 			verts[index].w = 1.0f;
 			index++;
 
-			verts[index].x = 0.0f;      // x remains constant
-			verts[index].y = 0.5f;      // end at 0.5 on y
-			verts[index].z = z;         // z varies
+			verts[index].x = x;
+			verts[index].y = 0.5f;
+			verts[index].z = 0.0f;
 			verts[index].w = 1.0f;
 			index++;
 		}
