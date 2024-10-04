@@ -123,16 +123,16 @@ private:
 
 		for (int i = 0; i <= 25; i++) //vertical lines
 		{ 
-			float x = -0.5f + i * step;
-			verts[index].x = x;
+			float z = -0.5f + i * step;
+			verts[index].x = 0.0f;
 			verts[index].y = -0.5f;
-			verts[index].z = 0.0f;
+			verts[index].z = z;
 			verts[index].w = 1.0f;
 			index++;
 
-			verts[index].x = x;
+			verts[index].x = 0.0f;
 			verts[index].y = 0.5f;
-			verts[index].z = 0.0f;
+			verts[index].z = z;
 			verts[index].w = 1.0f;
 			index++;
 		}
