@@ -96,6 +96,28 @@ private:
 		vlk.GetRenderPass((void**)&renderPass);
 	}
 
+	void create2DGrid(vertex verts[], int& index) {
+		const float step = 1.0f / 25; // Step for 25 squares, covering 0.5 NDC range
+
+		// Create horizontal lines
+		for (int i = 0; i <= 25; i++) {
+			float y = -0.5f + i * step;
+			verts[index] = { -0.5f, y, 0.0f, 1.0f }; // Starting point of the line
+			index++;
+			verts[index] = { 0.5f, y, 0.0f, 1.0f };  // Ending point of the line
+			index++;
+		}
+
+		// Create vertical lines
+		for (int i = 0; i <= 25; i++) {
+			float x = -0.5f + i * step;
+			verts[index] = { x, -0.5f, 0.0f, 1.0f }; // Starting point of the line
+			index++;
+			verts[index] = { x, 0.5f, 0.0f, 1.0f };  // Ending point of the line
+			index++;
+		}
+	}
+
 	void InitializeVertexBuffer()
 	{
 		// TODO: Part 1b
@@ -104,39 +126,7 @@ private:
 
 		vertex verts[104]{};
 		int index = 0;
-		int step = 0.04f;
-		for (int i = 0; i <= 25; i++)//horizontal lines
-		{
-			float z = -0.5f + i * step;
-			verts[index].x = -0.5f;
-			verts[index].y = 0.0f;
-			verts[index].z = z;
-			verts[index].w = 1.0f;
-			index++;
-
-			verts[index].x = 0.5f;
-			verts[index].y = 0.0f;
-			verts[index].z = z;
-			verts[index].w = 1.0f;
-			index++;
-		}
-
-		for (int i = 0; i <= 25; i++) //vertical lines
-		{ 
-			float x = -0.5f + i * step;
-			verts[index].x = x;
-			verts[index].y = 0.0f;
-			verts[index].z = -0.5f;
-			verts[index].w = 1.0f;
-			index++;
-
-			verts[index].x = x;
-			verts[index].y = 0.0f;
-			verts[index].z = 0.5f;
-			verts[index].w = 1.0f;
-			index++;
-		}
-
+		create2DGrid(verts, index);
 		CreateVertexBuffer(&verts[0], sizeof(verts));
 	}
 
