@@ -96,24 +96,26 @@ private:
 		vlk.GetRenderPass((void**)&renderPass);
 	}
 
-	void create2DGrid(vertex verts[], int& index) {
-		const float step = 1.0f / 25; // Step for 25 squares, covering 0.5 NDC range
+	void create2dGrid(vertex verts[], int& index) 
+	{
+		const float step = 1.0f / 25; //step size
 
-		// Create horizontal lines
-		for (int i = 0; i <= 25; i++) {
+		for (int i = 0; i < 26; i++) //horizontal lines
+		{
 			float y = -0.5f + i * step;
-			verts[index] = { -0.5f, y, 0.0f, 1.0f }; // Starting point of the line
+			verts[index] = { -0.5f, y, 0.0f, 1.0f }; //start of line
 			index++;
-			verts[index] = { 0.5f, y, 0.0f, 1.0f };  // Ending point of the line
+			verts[index] = { 0.5f, y, 0.0f, 1.0f };  //end of line
 			index++;
 		}
 
-		// Create vertical lines
-		for (int i = 0; i <= 25; i++) {
+		for (int i = 0; i < 26; i++) //vertical lines
+		{
 			float x = -0.5f + i * step;
-			verts[index] = { x, -0.5f, 0.0f, 1.0f }; // Starting point of the line
+
+			verts[index] = { x, -0.5f, 0.0f, 1.0f }; //start of line
 			index++;
-			verts[index] = { x, 0.5f, 0.0f, 1.0f };  // Ending point of the line
+			verts[index] = { x, 0.5f, 0.0f, 1.0f };  //end of line
 			index++;
 		}
 	}
@@ -123,10 +125,9 @@ private:
 		// TODO: Part 1b
 		// TODO: Part 1c
 		// TODO: Part 1d
-
 		vertex verts[104]{};
 		int index = 0;
-		create2DGrid(verts, index);
+		create2dGrid(verts, index);
 		CreateVertexBuffer(&verts[0], sizeof(verts));
 	}
 
