@@ -10,6 +10,7 @@
 #define GATEWARE_DISABLE_GOPENGLSURFACE // we have another template for this
 
 // TODO: Part 2a
+#define GATEWARE_ENABLE_MATH 
 // TODO: Part 4a
 
 // With what we want & what we don't defined we can include the API

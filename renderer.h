@@ -41,6 +41,9 @@ class Renderer
 		float x, y, z, w;
 	};
 	// TODO: Part 2a
+	GW::MATH::GMATRIXF worldMatrix1 = GW::MATH::GIdentityMatrixF;
+	GW::MATH::GMATRIXF xRotationYTransMatrix;
+	GW::MATH::GMatrix interfaceProxy;
 	// TODO: Part 2b
 		// TODO: Part 3a
 		// TODO: Part 3f 
@@ -59,6 +62,7 @@ public:
 		vlk = _vlk;
 
 		// TODO: Part 2a
+		interfaceProxy.Create();
 		// TODO: Part 2e
 		// TODO: Part 3a
 		// TODO: Part 3c
@@ -455,7 +459,33 @@ private:
 			}
 			});
 	}
+	//void Renderer::InitializeWorldMatrix() {
+	//	GMATRIXF rotationMatrix, translationMatrix;
 
+	//	// Create a 90-degree rotation around the X-axis
+	//	matrixProxy.RotationX(G_DEGREE_TO_RADIAN(90.0f), rotationMatrix);
+
+	//	// Create a translation matrix (translate 0.5 units down the Y-axis)
+	//	matrixProxy.TranslateF(0.0f, -0.5f, 0.0f, translationMatrix);
+
+	//	// Combine both matrices: worldMatrix1 = translation * rotation
+	//	matrixProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
+	//}
+	//Call the Helper Function : After constructing the Renderer, ensure you call the helper function to initialize the first world matrix :
+
+	//cpp
+	//	Copy code
+	//	InitializeWorldMatrix();
+
+	void initializeWorldMatrix1()
+	{
+		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
+		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
+		GW::MATH::GVECTORF translationVector = {0.0f, 0.5f, 0.0f, 1.0f};
+		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
+		interfaceProxy.MultiplyMatrixF(translationMatrix, rotationMatrix, worldMatrix1);
+	}
 
 public:
 	void Render()
@@ -463,6 +493,8 @@ public:
 		VkCommandBuffer commandBuffer = GetCurrentCommandBuffer();
 		// TODO: Part 4x
 		SetUpPipeline(commandBuffer);
+
+		initializeWorldMatrix1();
 
 		// TODO: Part 2b
 		// TODO: Part 2i // TODO: Part 4y
