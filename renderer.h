@@ -45,8 +45,13 @@ class Renderer
 	GW::MATH::GMATRIXF xRotationYTransMatrix;
 	GW::MATH::GMatrix interfaceProxy;
 	// TODO: Part 2b
-		// TODO: Part 3a
-		// TODO: Part 3f 
+	struct shaderVars
+	{
+		GW::MATH::GMATRIXF worldMatrix;
+		GW::MATH::GMATRIXF padding;
+	};
+	// TODO: Part 3a
+	// TODO: Part 3f 
 	// TODO: Part 2c // TODO: Part 4y
 	// TODO: Part 2e
 	// TODO: Part 2f
@@ -497,6 +502,9 @@ public:
 		initializeWorldMatrix1();
 
 		// TODO: Part 2b
+		shaderVars firstWorldMatrix{};
+		firstWorldMatrix.worldMatrix = worldMatrix1;
+
 		// TODO: Part 2i // TODO: Part 4y
 
 		// TODO: Part 3g
