@@ -36,6 +36,10 @@ class Renderer
 	unsigned int windowWidth, windowHeight;
 
 	// TODO: Part 1c
+	struct vertex
+	{
+		float x, y, z, w;
+	};
 	// TODO: Part 2a
 	// TODO: Part 2b
 		// TODO: Part 3a
@@ -107,7 +111,17 @@ private:
 			0,   0.5f
 		};
 
-		CreateVertexBuffer(&verts[0], sizeof(verts));
+		vertex verts2[12]{};
+		for (int i = 0; i < 6; i ++)
+		{
+			verts2[i].x = verts[i * 2];
+			verts2[i].y = verts[i * 2 + 1];
+
+			verts2[i].z = 0.0f;
+			verts2[i].w = 1.0f;
+		}
+
+		CreateVertexBuffer(&verts2[0], sizeof(verts2));
 	}
 
 	void CreateVertexBuffer(const void* data, unsigned int sizeInBytes)
@@ -210,7 +224,7 @@ private:
 		VkVertexInputAttributeDescription vertex_attribute_descriptions[1];
 		vertex_attribute_descriptions[0].binding = 0;
 		vertex_attribute_descriptions[0].location = 0;
-		vertex_attribute_descriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
+		vertex_attribute_descriptions[0].format = VK_FORMAT_R32G32B32A32_SFLOAT;
 		vertex_attribute_descriptions[0].offset = 0;
 
 		VkPipelineVertexInputStateCreateInfo input_vertex_info = CreateVkPipelineVertexInputStateCreateInfo(&vertex_binding_description, 1, vertex_attribute_descriptions, 1);
@@ -278,7 +292,7 @@ private:
 	{
 		VkVertexInputBindingDescription retval = {};
 		retval.binding = 0;
-		retval.stride = sizeof(float) * 2; 	//TODO: Part 1c
+		retval.stride = sizeof(vertex); 	//TODO: Part 1c
 		retval.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 		return retval;
 	}
