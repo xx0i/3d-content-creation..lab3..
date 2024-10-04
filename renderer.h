@@ -53,6 +53,9 @@ class Renderer
 	// TODO: Part 3a
 	// TODO: Part 3f 
 	// TODO: Part 2c // TODO: Part 4y
+	std::vector<VkBuffer> uniformBufferHandle;
+	std::vector<VkDeviceMemory> uniformBufferData;
+
 	// TODO: Part 2e
 	// TODO: Part 2f
 	// TODO: Part 2g
