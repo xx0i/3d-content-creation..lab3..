@@ -101,27 +101,43 @@ private:
 		// TODO: Part 1b
 		// TODO: Part 1c
 		// TODO: Part 1d
-		float verts[] = 
-		{
-			0,   0.5f,
-			0.5f, -0.5f,
-			0.5f, -0.5f,
-			-0.5f, -0.5f,
-			-0.5f, -0.5f,
-			0,   0.5f
-		};
 
-		vertex verts2[12]{};
-		for (int i = 0; i < 6; i ++)
+		vertex verts[104]{};
+		int index = 0;
+		int step = 0.04f;
+		for (int i = 0; i <= 25; i++)//horizontal lines
 		{
-			verts2[i].x = verts[i * 2];
-			verts2[i].y = verts[i * 2 + 1];
+			float y = -0.5f + i * step;
+			verts[index].x = -0.5f;
+			verts[index].y = y;
+			verts[index].z = 0.0f;
+			verts[index].w = 1.0f;
+			index++;
 
-			verts2[i].z = 0.0f;
-			verts2[i].w = 1.0f;
+			verts[index].x = 0.5f;
+			verts[index].y = y;
+			verts[index].z = 0.0f;
+			verts[index].w = 1.0f;
+			index++;
 		}
 
-		CreateVertexBuffer(&verts2[0], sizeof(verts2));
+		for (int i = 0; i <= 25; i++) //vertical lines
+		{ 
+			float x = -0.5f + i * step;
+			verts[index].x = x;
+			verts[index].y = -0.5f;
+			verts[index].z = 0.0f;
+			verts[index].w = 1.0f;
+			index++;
+
+			verts[index].x = x;
+			verts[index].y = 0.5f;
+			verts[index].z = 0.0f;
+			verts[index].w = 1.0f;
+			index++;
+		}
+
+		CreateVertexBuffer(&verts[0], sizeof(verts));
 	}
 
 	void CreateVertexBuffer(const void* data, unsigned int sizeInBytes)

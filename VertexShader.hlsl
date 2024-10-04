@@ -13,5 +13,5 @@ float4 main(VERTEX input) : SV_POSITION
 	// TODO: Part 2i
 	// TODO: Part 3b
 	// TODO: Part 3g
-	return input;
+	return input.pos;
 }
