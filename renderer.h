@@ -79,12 +79,13 @@ public:
 		interfaceProxy.Create();
 		// TODO: Part 2e
 		UpdateWindowDimensions();
-		InitializeGraphics();
+		GetHandlesFromSurface();
 		createDescriptorLayout();
 		// TODO: Part 3a
 		// TODO: Part 3c
 		// TODO: Part 3d
 		// TODO: Part 4a
+		InitializeGraphics();
 		BindShutdownCallback();
 	}
 
@@ -116,7 +117,6 @@ private:
 
 	void InitializeGraphics()
 	{
-		GetHandlesFromSurface();
 		InitializeVertexBuffer();
 		// TODO: Part 2d
 		initializeUniformBuffer();
