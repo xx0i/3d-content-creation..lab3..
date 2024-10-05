@@ -60,6 +60,7 @@ class Renderer
 	VkDescriptorSetLayout descriptorSetLayout = nullptr;
 
 	// TODO: Part 2f
+	VkDescriptorPool descriptorPool = nullptr;
 	// TODO: Part 2g
 	// TODO: Part 3c
 	// TODO: Part 3d
@@ -118,6 +119,7 @@ private:
 		// TODO: Part 2d
 		initializeUniformBuffer();
 		// TODO: Part 2f // TODO: Part 4y
+		initializeDescriptorPool();
 		// TODO: Part 2g // TODO: Part 4y
 		// TODO: Part 2h // TODO: Part 4y
 		CompileShaders();
@@ -192,6 +194,12 @@ private:
 			GvkHelper::create_buffer(physicalDevice, device, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, 
 				VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &uniformBufferHandle[i], &uniformBufferData[i]);
 		}
+	}
+
+	//part 2f
+	void initializeDescriptorPool()
+	{
+
 	}
 
 	void CompileShaders()
@@ -509,23 +517,6 @@ private:
 			}
 			});
 	}
-	//void Renderer::InitializeWorldMatrix() {
-	//	GMATRIXF rotationMatrix, translationMatrix;
-
-	//	// Create a 90-degree rotation around the X-axis
-	//	matrixProxy.RotationX(G_DEGREE_TO_RADIAN(90.0f), rotationMatrix);
-
-	//	// Create a translation matrix (translate 0.5 units down the Y-axis)
-	//	matrixProxy.TranslateF(0.0f, -0.5f, 0.0f, translationMatrix);
-
-	//	// Combine both matrices: worldMatrix1 = translation * rotation
-	//	matrixProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
-	//}
-	//Call the Helper Function : After constructing the Renderer, ensure you call the helper function to initialize the first world matrix :
-
-	//cpp
-	//	Copy code
-	//	InitializeWorldMatrix();
 
 	void initializeWorldMatrix1()
 	{
@@ -623,6 +614,7 @@ private:
 
 		// TODO: Part 2f
 		vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
+		vkDestroyDescriptorPool(device, descriptorPool, nullptr);
 
 		vkDestroyShaderModule(device, vertexShader, nullptr);
 		vkDestroyShaderModule(device, fragmentShader, nullptr);
