@@ -125,7 +125,7 @@ private:
 		// TODO: Part 2g // TODO: Part 4y
 		initializeDescriptorSets();
 		// TODO: Part 2h // TODO: Part 4y
-		linkDescriptorSetUniformBuffer();
+		//linkDescriptorSetUniformBuffer();
 		CompileShaders();
 		InitializeGraphicsPipeline();
 	}
