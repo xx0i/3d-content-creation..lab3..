@@ -199,7 +199,17 @@ private:
 	//part 2f
 	void initializeDescriptorPool()
 	{
+		VkDescriptorPoolSize poolSize = {};
+		poolSize.descriptorCount = 1;
+		poolSize.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
+		VkDescriptorPoolCreateInfo descriptorPoolInfo = {};
+		descriptorPoolInfo.flags = 0;
+		descriptorPoolInfo.maxSets = 1;
+		descriptorPoolInfo.pNext = nullptr;
+		descriptorPoolInfo.poolSizeCount = 1;
+		descriptorPoolInfo.pPoolSizes = &poolSize;
+		descriptorPoolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
 	}
 
 	void CompileShaders()
