@@ -251,6 +251,7 @@ private:
 		writeDescriptor.pTexelBufferView = nullptr;
 		writeDescriptor.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
 
+		vkUpdateDescriptorSets(device, 1, &writeDescriptor, 0, nullptr);
 	}
 
 	void CompileShaders()
