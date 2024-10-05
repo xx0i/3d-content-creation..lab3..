@@ -61,7 +61,10 @@ class Renderer
 
 	// TODO: Part 2f
 	VkDescriptorPool descriptorPool = nullptr;
+
 	// TODO: Part 2g
+	VkDescriptorSet descriptorSets = nullptr;
+
 	// TODO: Part 3c
 	// TODO: Part 3d
 	// TODO: Part 4a
@@ -121,7 +124,9 @@ private:
 		// TODO: Part 2f // TODO: Part 4y
 		initializeDescriptorPool();
 		// TODO: Part 2g // TODO: Part 4y
+		initializeDescriptorSets();
 		// TODO: Part 2h // TODO: Part 4y
+		
 		CompileShaders();
 		InitializeGraphicsPipeline();
 	}
@@ -210,6 +215,48 @@ private:
 		descriptorPoolInfo.poolSizeCount = 1;
 		descriptorPoolInfo.pPoolSizes = &poolSize;
 		descriptorPoolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+
+		vkCreateDescriptorPool(device, &descriptorPoolInfo, nullptr, &descriptorPool);
+	}
+
+	//part 2g
+	void initializeDescriptorSets()
+	{
+		VkDescriptorSetAllocateInfo descriptorAllocateInfo = {};
+		descriptorAllocateInfo.descriptorPool = descriptorPool;
+		descriptorAllocateInfo.descriptorSetCount = 1;
+		descriptorAllocateInfo.pNext = nullptr;
+		descriptorAllocateInfo.pSetLayouts = &descriptorSetLayout;
+		descriptorAllocateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+
+		vkAllocateDescriptorSets(device, &descriptorAllocateInfo, &descriptorSets);
+	}
+
+	//part 2h
+	void linkDescriptorSetUniformBuffer()
+	{
+//So, the good news is we have everything we need allocated now.The bad news is none of them know about each other.
+//To correct this issue, we will start by linking our new VkDescriptorSet to our uniform buffer.
+//To do this you will need a VkWriteDescriptorSet and a VkDescriptorBufferInfo structure to describe what you are trying to do.
+//Filling their members out is obvious for the most part.Keep in mind, we are connecting one uniform buffer and we do want access to all of it.
+//Once you have filled everything out use vkUpdateDescriptorSets to tell the VkDevice to link them together.
+		VkDescriptorBufferInfo descriptorBuffer = {};
+		descriptorBuffer.buffer = uniformBufferHandle[0];
+		descriptorBuffer.offset = 0;
+		descriptorBuffer.range = sizeof(shaderVars);
+
+		VkWriteDescriptorSet writeDescriptor = {};
+		writeDescriptor.descriptorCount = 1;
+		writeDescriptor.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+		writeDescriptor.dstArrayElement = 0;
+		writeDescriptor.dstBinding = 0;
+		writeDescriptor.dstSet = descriptorSets;
+		writeDescriptor.pBufferInfo = &descriptorBuffer;
+		writeDescriptor.pImageInfo = nullptr;
+		writeDescriptor.pNext = nullptr;
+		writeDescriptor.pTexelBufferView = nullptr;
+		writeDescriptor.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+
 	}
 
 	void CompileShaders()
