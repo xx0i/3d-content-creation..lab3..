@@ -576,7 +576,7 @@ private:
 		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GVECTORF translationVector = {0.0f, 0.5f, 0.0f, 1.0f};
-		interfaceProxy.RotateXGlobalF(rotationMatrix, 90, rotationMatrix);
+		interfaceProxy.RotateXLocalF(rotationMatrix, 90, rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(translationMatrix, rotationMatrix, worldMatrix1);
 	}
