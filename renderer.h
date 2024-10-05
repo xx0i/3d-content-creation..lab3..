@@ -96,7 +96,7 @@ public:
 		binding.descriptorCount = 1;
 		binding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 		binding.pImmutableSamplers = nullptr;
-		binding.stageFlags = VK_SHADER_STAGE_ALL;
+		binding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
 
 		VkDescriptorSetLayoutCreateInfo layoutInfo = {};
 		layoutInfo.bindingCount = 1;
@@ -594,6 +594,7 @@ public:
 		firstWorldMatrix.worldMatrix = worldMatrix1;
 
 		// TODO: Part 2i // TODO: Part 4y
+		//linkDescriptorSetUniformBuffer();
 		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &descriptorSets, 0, nullptr);
 
 		// TODO: Part 3g
