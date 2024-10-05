@@ -235,11 +235,6 @@ private:
 	//part 2h
 	void linkDescriptorSetUniformBuffer()
 	{
-//So, the good news is we have everything we need allocated now.The bad news is none of them know about each other.
-//To correct this issue, we will start by linking our new VkDescriptorSet to our uniform buffer.
-//To do this you will need a VkWriteDescriptorSet and a VkDescriptorBufferInfo structure to describe what you are trying to do.
-//Filling their members out is obvious for the most part.Keep in mind, we are connecting one uniform buffer and we do want access to all of it.
-//Once you have filled everything out use vkUpdateDescriptorSets to tell the VkDevice to link them together.
 		VkDescriptorBufferInfo descriptorBuffer = {};
 		descriptorBuffer.buffer = uniformBufferHandle[0];
 		descriptorBuffer.offset = 0;
