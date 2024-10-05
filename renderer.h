@@ -593,6 +593,7 @@ public:
 		firstWorldMatrix.worldMatrix = worldMatrix1;
 
 		// TODO: Part 2i // TODO: Part 4y
+		linkDescriptorSetUniformBuffer();
 		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &descriptorSets, 0, nullptr);
 
 		// TODO: Part 3g
