@@ -78,14 +78,13 @@ public:
 		// TODO: Part 2a
 		interfaceProxy.Create();
 		// TODO: Part 2e
+		UpdateWindowDimensions();
+		InitializeGraphics();
 		createDescriptorLayout();
 		// TODO: Part 3a
 		// TODO: Part 3c
 		// TODO: Part 3d
 		// TODO: Part 4a
-
-		UpdateWindowDimensions();
-		InitializeGraphics();
 		BindShutdownCallback();
 	}
 
