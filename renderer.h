@@ -96,7 +96,7 @@ public:
 		binding.descriptorCount = 1;
 		binding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 		binding.pImmutableSamplers = nullptr;
-		binding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+		binding.stageFlags = VK_SHADER_STAGE_ALL;
 
 		VkDescriptorSetLayoutCreateInfo layoutInfo = {};
 		layoutInfo.bindingCount = 1;
@@ -104,6 +104,12 @@ public:
 		layoutInfo.pBindings = &binding;
 		layoutInfo.pNext = nullptr;
 		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+
+		VkDescriptorSetLayoutBindingFlagsCreateInfo bindingFlags = {};
+		bindingFlags.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
+		bindingFlags.bindingCount = 1;
+		//bindingFlags.pBindingFlags = /* pointer to your flags array */;
+		layoutInfo.pNext = &bindingFlags;
 
 		vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, &descriptorSetLayout);
 	}
