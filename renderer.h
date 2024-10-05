@@ -105,12 +105,6 @@ public:
 		layoutInfo.pNext = nullptr;
 		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 
-		VkDescriptorSetLayoutBindingFlagsCreateInfo bindingFlags = {};
-		bindingFlags.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
-		bindingFlags.bindingCount = 1;
-		//bindingFlags.pBindingFlags = /* pointer to your flags array */;
-		layoutInfo.pNext = &bindingFlags;
-
 		vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, &descriptorSetLayout);
 	}
 
