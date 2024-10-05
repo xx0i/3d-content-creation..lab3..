@@ -1,3 +1,5 @@
+#pragma pack_matrix( row_major )   
+
 // minimalistic code to draw a single triangle, this is not part of the API.
 #include "shaderc/shaderc.h" // needed for compiling shaders at runtime
 #ifdef _WIN32 // must use MT platform DLL libraries on windows
