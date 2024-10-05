@@ -1,5 +1,3 @@
-#pragma pack_matrix( row_major )   
-
 // minimalistic code to draw a single triangle, this is not part of the API.
 #include "shaderc/shaderc.h" // needed for compiling shaders at runtime
 #ifdef _WIN32 // must use MT platform DLL libraries on windows
@@ -578,7 +576,7 @@ private:
 		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GVECTORF translationVector = {0.0f, 0.5f, 0.0f, 1.0f};
-		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		interfaceProxy.RotateXGlobalF(rotationMatrix, 90, rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(translationMatrix, rotationMatrix, worldMatrix1);
 	}
