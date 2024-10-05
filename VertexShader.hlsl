@@ -16,7 +16,8 @@ cbuffer shaderVars
 float4 main(VERTEX input) : SV_POSITION
 {
 	// TODO: Part 2i
+    return mul(input.pos, worldMatrix);
 	// TODO: Part 3b
 	// TODO: Part 3g
-	return input.pos;
+	//return input.pos;
 }
