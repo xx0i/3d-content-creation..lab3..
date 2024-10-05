@@ -74,7 +74,7 @@ public:
 		// TODO: Part 2a
 		interfaceProxy.Create();
 		// TODO: Part 2e
-		
+		createDescriptorLayout();
 		// TODO: Part 3a
 		// TODO: Part 3c
 		// TODO: Part 3d
@@ -83,6 +83,25 @@ public:
 		UpdateWindowDimensions();
 		InitializeGraphics();
 		BindShutdownCallback();
+	}
+
+	void createDescriptorLayout()
+	{
+		VkDescriptorSetLayoutBinding binding = {};
+		binding.binding = 0;
+		binding.descriptorCount = 1;
+		binding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+		binding.pImmutableSamplers = nullptr;
+		binding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+
+		VkDescriptorSetLayoutCreateInfo layoutInfo = {};
+		layoutInfo.bindingCount = 1;
+		layoutInfo.flags = 0;
+		layoutInfo.pBindings = &binding;
+		layoutInfo.pNext = nullptr;
+		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+
+		vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, &descriptorSetLayout);
 	}
 
 private:
@@ -477,7 +496,6 @@ private:
 		pipeline_layout_create_info.setLayoutCount = 1; // TODO: Part 2e
 		pipeline_layout_create_info.pSetLayouts = &descriptorSetLayout; // TODO: Part 2e
 		pipeline_layout_create_info.pushConstantRangeCount = 0; 
-		pipeline_layout_create_info.pPushConstantRanges = nullptr;
 
 		vkCreatePipelineLayout(device, &pipeline_layout_create_info, nullptr, &pipelineLayout);
 	}
