@@ -42,7 +42,6 @@ class Renderer
 	};
 	// TODO: Part 2a
 	GW::MATH::GMATRIXF worldMatrix1 = GW::MATH::GIdentityMatrixF;
-	GW::MATH::GMATRIXF xRotationYTransMatrix;
 	GW::MATH::GMatrix interfaceProxy;
 	// TODO: Part 2b
 	struct shaderVars
@@ -576,9 +575,9 @@ private:
 		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GVECTORF translationVector = {0.0f, -0.5f, 0.0f, 1.0f};
-		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90),xRotationYTransMatrix);
-		interfaceProxy.TranslateGlobalF(worldMatrix1, translationVector, worldMatrix1);
-		interfaceProxy.MultiplyMatrixF(worldMatrix1, xRotationYTransMatrix, worldMatrix1);
+		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
+		interfaceProxy.MultiplyMatrixF(translationMatrix, rotationMatrix, worldMatrix1);
 	}
 
 public:
