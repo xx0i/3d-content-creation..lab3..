@@ -8,7 +8,7 @@ void PrintLabeledDebugString(const char* label, const char* toPrint)
 {
 	std::cout << label << toPrint << std::endl;
 
-	//OutputDebugStringA is a windows-only function 
+//OutputDebugStringA is a windows-only function 
 #if defined WIN32 
 	OutputDebugStringA(label);
 	OutputDebugStringA(toPrint);
@@ -22,7 +22,7 @@ class Renderer
 	GW::GRAPHICS::GVulkanSurface vlk;
 	VkRenderPass renderPass;
 	GW::CORE::GEventReceiver shutdown;
-
+	
 	// what we need at a minimum to draw a triangle
 	VkDevice device = nullptr;
 	VkPhysicalDevice physicalDevice = nullptr;
@@ -138,7 +138,7 @@ private:
 		vlk.GetRenderPass((void**)&renderPass);
 	}
 
-	void create2dGrid(vertex verts[], int& index)
+	void create2dGrid(vertex verts[], int& index) 
 	{
 		const float step = 1.0f / 25; //step size
 
@@ -175,7 +175,7 @@ private:
 
 	void CreateVertexBuffer(const void* data, unsigned int sizeInBytes)
 	{
-		GvkHelper::create_buffer(physicalDevice, device, sizeInBytes, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
+		GvkHelper::create_buffer(physicalDevice, device, sizeInBytes,VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, 
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
 			&vertexHandle, &vertexData);
 		GvkHelper::write_to_buffer(device, vertexData, data, sizeInBytes); // Transfer triangle data to the vertex buffer. (staging would be prefered here)
@@ -195,8 +195,8 @@ private:
 		uniformBufferData.resize(imageCount);
 
 		for (size_t i = 0; i < imageCount; i++) //loops through each active frame and creates a buffer for each
-		{
-			GvkHelper::create_buffer(physicalDevice, device, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+		{ 
+			GvkHelper::create_buffer(physicalDevice, device, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, 
 				VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &uniformBufferHandle[i], &uniformBufferData[i]);
 		}
 	}
@@ -235,27 +235,24 @@ private:
 	//part 2h
 	void linkDescriptorSetUniformBuffer()
 	{
-		for (int i = 0; i < uniformBufferHandle.size(); i++)
-		{
-		std::vector<VkDescriptorBufferInfo> descriptorBuffer = {};
-		descriptorBuffer[i].buffer = uniformBufferHandle[i];
-		descriptorBuffer[i].offset = 0;
-		descriptorBuffer[i].range = sizeof(shaderVars);
+		VkDescriptorBufferInfo descriptorBuffer = {};
+		descriptorBuffer.buffer = uniformBufferHandle[0];
+		descriptorBuffer.offset = 0;
+		descriptorBuffer.range = sizeof(shaderVars);
 
 		VkWriteDescriptorSet writeDescriptor = {};
-			writeDescriptor.descriptorCount = 1;
-			writeDescriptor.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-			writeDescriptor.dstArrayElement = 0;
-			writeDescriptor.dstBinding = 0;
-			writeDescriptor.dstSet = descriptorSets;
-			writeDescriptor.pBufferInfo = &descriptorBuffer[i];
-			writeDescriptor.pImageInfo = nullptr;
-			writeDescriptor.pNext = nullptr;
-			writeDescriptor.pTexelBufferView = nullptr;
-			writeDescriptor.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+		writeDescriptor.descriptorCount = 1;
+		writeDescriptor.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+		writeDescriptor.dstArrayElement = 0;
+		writeDescriptor.dstBinding = 0;
+		writeDescriptor.dstSet = descriptorSets;
+		writeDescriptor.pBufferInfo = &descriptorBuffer;
+		writeDescriptor.pImageInfo = nullptr;
+		writeDescriptor.pNext = nullptr;
+		writeDescriptor.pTexelBufferView = nullptr;
+		writeDescriptor.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
 
-			vkUpdateDescriptorSets(device, 1, &writeDescriptor, 0, nullptr);
-		}
+		vkUpdateDescriptorSets(device, 1, &writeDescriptor, 0, nullptr);
 	}
 
 	void CompileShaders()
@@ -286,7 +283,7 @@ private:
 	void CompileVertexShader(const shaderc_compiler_t& compiler, const shaderc_compile_options_t& options)
 	{
 		std::string vertexShaderSource = ReadFileIntoString("../VertexShader.hlsl");
-
+		
 		shaderc_compilation_result_t result = shaderc_compile_into_spv( // compile
 			compiler, vertexShaderSource.c_str(), vertexShaderSource.length(),
 			shaderc_vertex_shader, "main.vert", "main", options);
@@ -328,7 +325,7 @@ private:
 	// Create Pipeline & Layout (Thanks Tiny!)
 	void InitializeGraphicsPipeline()
 	{
-		VkPipelineShaderStageCreateInfo stage_create_info[2] = {};
+		VkPipelineShaderStageCreateInfo stage_create_info[2] = {};	
 
 		// Create Stage Info for Vertex Shader
 		stage_create_info[0].sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -363,10 +360,10 @@ private:
 		VkPipelineColorBlendAttachmentState color_blend_attachment_state = CreateVkPipelineColorBlendAttachmentState();
 		VkPipelineColorBlendStateCreateInfo color_blend_create_info = CreateVkPipelineColorBlendStateCreateInfo(&color_blend_attachment_state, 1);
 
-		VkDynamicState dynamic_states[2] =
+		VkDynamicState dynamic_states[2] = 
 		{
 			// By setting these we do not need to re-create the pipeline on Resize
-			VK_DYNAMIC_STATE_VIEWPORT,
+			VK_DYNAMIC_STATE_VIEWPORT, 
 			VK_DYNAMIC_STATE_SCISSOR
 		};
 
@@ -391,7 +388,7 @@ private:
 		pipeline_create_info.renderPass = renderPass;
 		pipeline_create_info.subpass = 0;
 		pipeline_create_info.basePipelineHandle = VK_NULL_HANDLE;
-
+		
 		vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipeline_create_info, nullptr, &pipeline);
 	}
 
@@ -554,12 +551,12 @@ private:
 	void CreatePipelineLayout()
 	{
 		// TODO: Part 2e
-
+		
 		VkPipelineLayoutCreateInfo pipeline_layout_create_info = {};
 		pipeline_layout_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 		pipeline_layout_create_info.setLayoutCount = 1; // TODO: Part 2e
 		pipeline_layout_create_info.pSetLayouts = &descriptorSetLayout; // TODO: Part 2e
-		pipeline_layout_create_info.pushConstantRangeCount = 0;
+		pipeline_layout_create_info.pushConstantRangeCount = 0; 
 
 		vkCreatePipelineLayout(device, &pipeline_layout_create_info, nullptr, &pipelineLayout);
 	}
@@ -578,10 +575,10 @@ private:
 	{
 		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF translationVector = { 0.0f, -0.5f, 0.0f, 1.0f };
-		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
-		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		interfaceProxy.MultiplyMatrixF(translationMatrix, rotationMatrix, worldMatrix1);
+		GW::MATH::GVECTORF translationVector = {0.0f, -0.5f, 0.0f, 1.0f};
+		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90),xRotationYTransMatrix);
+		interfaceProxy.TranslateGlobalF(worldMatrix1, translationVector, worldMatrix1);
+		interfaceProxy.MultiplyMatrixF(worldMatrix1, xRotationYTransMatrix, worldMatrix1);
 	}
 
 public:
