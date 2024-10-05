@@ -1,4 +1,4 @@
-#pragma pack_matrix( row_major )   
+//#pragma pack_matrix( row_major )   
 // an ultra simple hlsl vertex shader
 // TODO: Part 1c
 struct VERTEX
