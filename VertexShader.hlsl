@@ -9,16 +9,19 @@ struct VERTEX
 cbuffer shaderVars
 {
     matrix worldMatrix;
+    // TODO: Part 3b
     matrix viewMatrix;
+    matrix perspectiveMatrix;
+     // TODO: Part 3f
+    // TODO: Part 3g
 };
-// TODO: Part 3b
-// TODO: Part 3f
-// TODO: Part 3g
+
 float4 main(VERTEX input) : SV_POSITION
 {
 	// TODO: Part 2i
     matrix result = mul(worldMatrix, viewMatrix);
 	// TODO: Part 3b
+    result = mul(perspectiveMatrix, result);
     input.pos = mul(input.pos, result);
 	// TODO: Part 3g
 	return input.pos;

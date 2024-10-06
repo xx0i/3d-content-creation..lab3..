@@ -48,6 +48,7 @@ class Renderer
 	{
 		GW::MATH::GMATRIXF worldMatrix;
 		GW::MATH::GMATRIXF viewMatrix;
+		GW::MATH::GMATRIXF perspectiveMatrix;
 	};
 	shaderVars shaderVarsUniformBuffer{};
 	// TODO: Part 3a
@@ -91,6 +92,7 @@ public:
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		// TODO: Part 3c
 		initializePerspectiveMatrix();
+		shaderVarsUniformBuffer.perspectiveMatrix = leftHandedPerspectiveMatrix;
 		// TODO: Part 3d
 		// TODO: Part 4a
 		createDescriptorLayout();
