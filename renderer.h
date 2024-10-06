@@ -49,6 +49,7 @@ class Renderer
 		GW::MATH::GMATRIXF worldMatrix;
 		GW::MATH::GMATRIXF padding;
 	};
+	shaderVars firstWorldMatrix{};
 	// TODO: Part 3a
 	// TODO: Part 3f 
 	// TODO: Part 2c // TODO: Part 4y
@@ -183,7 +184,7 @@ private:
 	//part 2d
 	void initializeUniformBuffer()
 	{
-		VkDeviceSize bufferSize = sizeof(shaderVars);  //size of the uniform data
+		unsigned int bufferSize = sizeof(shaderVars);  //size of the uniform data
 
 		//gets the number of active frames i think
 		uint32_t imageCount;
@@ -197,6 +198,7 @@ private:
 		{ 
 			GvkHelper::create_buffer(physicalDevice, device, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, 
 				VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &uniformBufferHandle[i], &uniformBufferData[i]);
+			GvkHelper::write_to_buffer(device, uniformBufferData[i], &firstWorldMatrix, bufferSize);
 		}
 	}
 
@@ -590,7 +592,6 @@ public:
 		initializeWorldMatrix1();
 
 		// TODO: Part 2b
-		shaderVars firstWorldMatrix{};
 		firstWorldMatrix.worldMatrix = worldMatrix1;
 
 		// TODO: Part 2i // TODO: Part 4y;
