@@ -47,10 +47,11 @@ class Renderer
 	struct shaderVars
 	{
 		GW::MATH::GMATRIXF worldMatrix;
-		GW::MATH::GMATRIXF padding;
+		GW::MATH::GMATRIXF viewMatrix;
 	};
-	shaderVars firstWorldMatrix{};
+	shaderVars shaderVarsUniformBuffer{};
 	// TODO: Part 3a
+	GW::MATH::GMATRIXF viewMatrix = GW::MATH::GIdentityMatrixF;
 	// TODO: Part 3f 
 	// TODO: Part 2c // TODO: Part 4y
 	std::vector<VkBuffer> uniformBufferHandle;
@@ -83,17 +84,29 @@ public:
 
 		//part 2b -> doc said it was supposed to be in the renderer function but that didn't work but it works here -> waiting for confirmation from prof/lab instructor
 		initializeWorldMatrix1();
-		firstWorldMatrix.worldMatrix = worldMatrix1;
-		createDescriptorLayout();
+		shaderVarsUniformBuffer.worldMatrix = worldMatrix1;
 		// TODO: Part 3a
+		initializeViewMatrix();
+		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		// TODO: Part 3c
 		// TODO: Part 3d
 		// TODO: Part 4a
+		createDescriptorLayout();
 		InitializeGraphics();
 		BindShutdownCallback();
 	}
 
 	void initializeWorldMatrix1()
+	{
+		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
+		GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
+		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
+		interfaceProxy.RotateYGlobalF(translationMatrix, -0.4f, translationMatrix);
+		interfaceProxy.RotateXGlobalF(translationMatrix, -0.3f, translationMatrix);
+		interfaceProxy.InverseF(translationMatrix, viewMatrix);
+	}
+
+	void initializeViewMatrix()
 	{
 		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
@@ -212,7 +225,7 @@ private:
 		{ 
 			GvkHelper::create_buffer(physicalDevice, device, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, 
 				VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &uniformBufferHandle[i], &uniformBufferData[i]);
-			GvkHelper::write_to_buffer(device, uniformBufferData[i], &firstWorldMatrix, bufferSize);
+			GvkHelper::write_to_buffer(device, uniformBufferData[i], &shaderVarsUniformBuffer, bufferSize);
 		}
 	}
 
