@@ -122,7 +122,7 @@ public:
 	{
 		float aspectRatio = 0.0f;
 		vlk.GetAspectRatio(aspectRatio);
-		interfaceProxy.ProjectionVulkanLHF(65, aspectRatio, 0.1, 100, leftHandedPerspectiveMatrix);
+		interfaceProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN_F(65.0f), aspectRatio, 0.1, 100, leftHandedPerspectiveMatrix);
 	}
 
 	void createDescriptorLayout()
