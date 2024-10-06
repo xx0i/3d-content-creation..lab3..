@@ -81,9 +81,8 @@ public:
 		UpdateWindowDimensions();
 		GetHandlesFromSurface();
 
+		//part 2b -> doc said it was supposed to be in the renderer function but that didn't work but it works here -> waiting for confirmation from prof/lab instructor
 		initializeWorldMatrix1();
-
-		// TODO: Part 2b
 		firstWorldMatrix.worldMatrix = worldMatrix1;
 		createDescriptorLayout();
 		// TODO: Part 3a
@@ -92,6 +91,16 @@ public:
 		// TODO: Part 4a
 		InitializeGraphics();
 		BindShutdownCallback();
+	}
+
+	void initializeWorldMatrix1()
+	{
+		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
+		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
+		GW::MATH::GVECTORF translationVector = { 0.0f, -0.5f, 0.0f, 1.0f };
+		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
+		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
 	}
 
 	void createDescriptorLayout()
@@ -577,27 +586,12 @@ private:
 			});
 	}
 
-	void initializeWorldMatrix1()
-	{
-		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF translationVector = {0.0f, -0.5f, 0.0f, 1.0f};
-		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
-		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
-	}
-
 public:
 	void Render()
 	{
 		VkCommandBuffer commandBuffer = GetCurrentCommandBuffer();
 		// TODO: Part 4x
 		SetUpPipeline(commandBuffer);
-
-		//initializeWorldMatrix1();
-
-		//// TODO: Part 2b
-		//firstWorldMatrix.worldMatrix = worldMatrix1;
 
 		// TODO: Part 2i // TODO: Part 4y;
 		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &descriptorSets, 0, 0);
