@@ -312,7 +312,7 @@ private:
 	{
 		shaderc_compile_options_t retval = shaderc_compile_options_initialize();
 		shaderc_compile_options_set_source_language(retval, shaderc_source_language_hlsl);
-		shaderc_compile_options_set_invert_y(retval, false);	// TODO: Part 3e
+		shaderc_compile_options_set_invert_y(retval, true);	// TODO: Part 3e
 #ifndef NDEBUG
 		shaderc_compile_options_set_generate_debug_info(retval);
 #endif
