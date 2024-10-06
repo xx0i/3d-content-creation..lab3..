@@ -67,6 +67,7 @@ class Renderer
 	VkDescriptorSet descriptorSets = nullptr;
 
 	// TODO: Part 3c
+	GW::MATH::GMATRIXF leftHandedPerspectiveMatrix = GW::MATH::GIdentityMatrixF;
 	// TODO: Part 3d
 	// TODO: Part 4a
 
@@ -89,6 +90,7 @@ public:
 		initializeViewMatrix();
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		// TODO: Part 3c
+		initializePerspectiveMatrix();
 		// TODO: Part 3d
 		// TODO: Part 4a
 		createDescriptorLayout();
@@ -114,6 +116,13 @@ public:
 		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
+	}
+
+	void initializePerspectiveMatrix()
+	{
+		float aspectRatio = 0.0f;
+		vlk.GetAspectRatio(aspectRatio);
+		interfaceProxy.ProjectionVulkanLHF(65, aspectRatio, 0.1, 100, leftHandedPerspectiveMatrix);
 	}
 
 	void createDescriptorLayout()
