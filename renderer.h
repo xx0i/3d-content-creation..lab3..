@@ -102,7 +102,7 @@ public:
 		GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
 		interfaceProxy.RotateYGlobalF(translationMatrix, -G_PI / 10.0f, translationMatrix);
-		interfaceProxy.RotateXGlobalF(translationMatrix, -G_PI / 8.0f, translationMatrix);
+		interfaceProxy.RotateXGlobalF(translationMatrix, -G_PI / 12.0f, translationMatrix);
 		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 	}
 
