@@ -101,8 +101,8 @@ public:
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		interfaceProxy.RotateXGlobalF(translationMatrix, -G_PI / 4.0f, translationMatrix);
-		interfaceProxy.RotateYGlobalF(translationMatrix, -G_PI / 6.0f, translationMatrix);
+		interfaceProxy.RotateXGlobalF(translationMatrix, -G_PI / 5.0f, translationMatrix);
+		interfaceProxy.RotateYGlobalF(translationMatrix, -G_PI / 3.0f, translationMatrix);
 		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 	}
 
