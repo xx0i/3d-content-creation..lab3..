@@ -80,6 +80,11 @@ public:
 		// TODO: Part 2e
 		UpdateWindowDimensions();
 		GetHandlesFromSurface();
+
+		initializeWorldMatrix1();
+
+		// TODO: Part 2b
+		firstWorldMatrix.worldMatrix = worldMatrix1;
 		createDescriptorLayout();
 		// TODO: Part 3a
 		// TODO: Part 3c
@@ -589,10 +594,10 @@ public:
 		// TODO: Part 4x
 		SetUpPipeline(commandBuffer);
 
-		initializeWorldMatrix1();
+		//initializeWorldMatrix1();
 
-		// TODO: Part 2b
-		firstWorldMatrix.worldMatrix = worldMatrix1;
+		//// TODO: Part 2b
+		//firstWorldMatrix.worldMatrix = worldMatrix1;
 
 		// TODO: Part 2i // TODO: Part 4y;
 		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &descriptorSets, 0, 0);
