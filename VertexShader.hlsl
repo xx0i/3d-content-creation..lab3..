@@ -16,10 +16,10 @@ cbuffer shaderVars
     // TODO: Part 3g
 };
 
-float4 main(VERTEX input) : SV_POSITION
+float4 main(VERTEX input : POSITION, uint matrixIndex : SV_InstanceID) : SV_POSITION
 {
 	// TODO: Part 2i
-    matrix result = mul(viewMatrix, worldMatrix[0]);
+    matrix result = mul(viewMatrix, worldMatrix[matrixIndex]);
 	// TODO: Part 3b
     result = mul(result, perspectiveMatrix);
     input.pos = mul(input.pos, result);
