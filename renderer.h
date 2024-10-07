@@ -85,7 +85,7 @@ public:
 		GetHandlesFromSurface();
 
 		//part 2b -> doc said it was supposed to be in the renderer function but that didn't work but it works here -> waiting for confirmation from prof/lab instructor
-		initializeWorldMatrix();
+		initializeWorldMatrix1();
 		shaderVarsUniformBuffer.worldMatrix = worldMatrix1;
 		// TODO: Part 3a
 		initializeViewMatrix();
@@ -100,7 +100,17 @@ public:
 		BindShutdownCallback();
 	}
 
-	void initializeWorldMatrix()
+	void initializeWorldMatrix1()
+	{
+		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
+		GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
+		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
+		interfaceProxy.RotateYGlobalF(translationMatrix, -0.2f, translationMatrix);
+		interfaceProxy.RotateXGlobalF(translationMatrix, -0.3f, translationMatrix);
+		interfaceProxy.InverseF(translationMatrix, viewMatrix);
+	}
+
+	void initializeViewMatrix()
 	{
 		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
@@ -108,16 +118,6 @@ public:
 		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
-	}
-
-	void initializeViewMatrix()
-	{
-		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
-		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		interfaceProxy.RotateYGlobalF(translationMatrix, -0.4f, translationMatrix);
-		interfaceProxy.RotateXGlobalF(translationMatrix, -0.3f, translationMatrix);
-		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 	}
 
 	void initializePerspectiveMatrix()
