@@ -149,7 +149,7 @@ public:
 		//wall 2
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF wall2Translation = { 0.0f, -0.5f, 0.0f, 1.0f };
+		GW::MATH::GVECTORF wall2Translation = { 0.0f, 0.0f, -0.5f, 1.0f };
 		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall2Translation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix4);
@@ -168,8 +168,9 @@ public:
 		//wall 4
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF wall4Translation = { 0.0f, -0.5f, 0.0f, 1.0f };
+		GW::MATH::GVECTORF wall4Translation = { 0.0f, 0.0f, 0.5f, 1.0f };
 		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		interfaceProxy.RotateYGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(180), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall4Translation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix6);
 		shaderVarsUniformBuffer.worldMatrix[0] = worldMatrix6;
