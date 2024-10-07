@@ -88,7 +88,7 @@ public:
 		initializeWorldMatrix1();
 		shaderVarsUniformBuffer.worldMatrix = worldMatrix1;
 		// TODO: Part 3a
-		initializeViewMatrix();
+		//initializeViewMatrix();
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		// TODO: Part 3c
 		initializePerspectiveMatrix();
