@@ -105,8 +105,11 @@ public:
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		//interfaceProxy.RotateYGlobalF(translationMatrix, -3.9f, translationMatrix);
-		//interfaceProxy.RotateXGlobalF(translationMatrix, 1.8f, translationMatrix);
+		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
+
+		// Optionally, apply other rotations if needed (but for the diamond look, this might be enough)
+		// Rotate around X axis (if you still need to tilt the camera up/down)
+		interfaceProxy.RotateXGlobalF(translationMatrix, 1.8f, translationMatrix);
 
 		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 	}
