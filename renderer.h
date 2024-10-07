@@ -109,7 +109,7 @@ public:
 
 		// Optionally, apply other rotations if needed (but for the diamond look, this might be enough)
 		// Rotate around X axis (if you still need to tilt the camera up/down)
-		interfaceProxy.RotateXGlobalF(translationMatrix, 1.9f, translationMatrix);
+		interfaceProxy.RotateXGlobalF(translationMatrix, 3.0f, translationMatrix);
 
 		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 	}
