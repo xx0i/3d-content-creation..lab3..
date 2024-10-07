@@ -22,7 +22,7 @@ float4 main(VERTEX input) : SV_POSITION
     matrix result = mul(viewMatrix, worldMatrix);
 	// TODO: Part 3b
    // result = mul(result, perspectiveMatrix);
-   // input.pos = mul(input.pos, result);
+    input.pos = mul(input.pos, result);
 	// TODO: Part 3g
 	return input.pos;
 }
