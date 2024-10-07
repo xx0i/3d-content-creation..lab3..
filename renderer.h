@@ -91,7 +91,7 @@ public:
 		initializeViewMatrix();
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		// TODO: Part 3c
-		//initializePerspectiveMatrix();
+		initializePerspectiveMatrix();
 		shaderVarsUniformBuffer.perspectiveMatrix = leftHandedPerspectiveMatrix;
 		// TODO: Part 3d
 		// TODO: Part 4a
@@ -100,7 +100,7 @@ public:
 		BindShutdownCallback();
 	}
 
-	void initializeWorldMatrix1()
+	void initializeViewMatrix()
 	{
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
@@ -110,7 +110,7 @@ public:
 		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 	}
 
-	void initializeViewMatrix()
+	void initializeWorldMatrix1()
 	{
 		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
