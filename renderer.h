@@ -85,10 +85,10 @@ public:
 		GetHandlesFromSurface();
 
 		//part 2b -> doc said it was supposed to be in the renderer function but that didn't work but it works here -> waiting for confirmation from prof/lab instructor
-		initializeViewMatrix();
+		initializeWorldMatrix();
 		shaderVarsUniformBuffer.worldMatrix = worldMatrix1;
 		// TODO: Part 3a
-		initializeWorldMatrix();
+		initializeViewMatrix();
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		// TODO: Part 3c
 		initializePerspectiveMatrix();
