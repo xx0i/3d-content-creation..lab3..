@@ -42,11 +42,16 @@ class Renderer
 	};
 	// TODO: Part 2a
 	GW::MATH::GMATRIXF worldMatrix1 = GW::MATH::GIdentityMatrixF;
+	GW::MATH::GMATRIXF worldMatrix2 = GW::MATH::GIdentityMatrixF;
+	GW::MATH::GMATRIXF worldMatrix3 = GW::MATH::GIdentityMatrixF;
+	GW::MATH::GMATRIXF worldMatrix4 = GW::MATH::GIdentityMatrixF;
+	GW::MATH::GMATRIXF worldMatrix5 = GW::MATH::GIdentityMatrixF;
+	GW::MATH::GMATRIXF worldMatrix6 = GW::MATH::GIdentityMatrixF;
 	GW::MATH::GMatrix interfaceProxy;
 	// TODO: Part 2b
 	struct shaderVars
 	{
-		GW::MATH::GMATRIXF worldMatrix;
+		GW::MATH::GMATRIXF worldMatrix[6];
 		GW::MATH::GMATRIXF viewMatrix;
 		GW::MATH::GMATRIXF perspectiveMatrix;
 	};
@@ -85,8 +90,7 @@ public:
 		GetHandlesFromSurface();
 
 		//part 2b -> doc said it was supposed to be in the renderer function but that didn't work but it works here -> waiting for confirmation from prof/lab instructor
-		initializeWorldMatrix1();
-		shaderVarsUniformBuffer.worldMatrix = worldMatrix1;
+		initializeWorldMatrices();
 		// TODO: Part 3a
 		initializeViewMatrix();
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
@@ -112,14 +116,56 @@ public:
 		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 	}
 
-	void initializeWorldMatrix1()
+	void initializeWorldMatrices()
 	{
+		//floor
 		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF translationVector = { 0.0f, -0.5f, 0.0f, 1.0f };
+		GW::MATH::GVECTORF floorTranslation = { 0.0f, -0.5f, 0.0f, 1.0f };
 		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
-		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
+		interfaceProxy.TranslateGlobalF(translationMatrix, floorTranslation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
+
+		shaderVarsUniformBuffer.worldMatrix[0] = worldMatrix1;
+
+		//ceiling
+		GW::MATH::GVECTORF ceilingTranslation = { 0.0f, 0.5f, 0.0f, 1.0f };
+		translationMatrix = GW::MATH::GIdentityMatrixF;
+		interfaceProxy.TranslateGlobalF(translationMatrix, ceilingTranslation, worldMatrix2);
+		shaderVarsUniformBuffer.worldMatrix[1] = worldMatrix2;
+
+		//wall 1
+		GW::MATH::GVECTORF wall1Translation = { 0.0f, 0.0f, -0.5f, 1.0f };
+		translationMatrix = GW::MATH::GIdentityMatrixF;
+		interfaceProxy.TranslateGlobalF(translationMatrix, wall1Translation, worldMatrix3);
+		shaderVarsUniformBuffer.worldMatrix[2] = worldMatrix3;
+
+		//wall 2
+		GW::MATH::GVECTORF wall2Translation = { 0.0f, 0.0f, 0.5f, 1.0f };
+		rotationMatrix = GW::MATH::GIdentityMatrixF;
+		translationMatrix = GW::MATH::GIdentityMatrixF;
+		interfaceProxy.RotateYGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(180), rotationMatrix);
+		interfaceProxy.TranslateGlobalF(translationMatrix, wall2Translation, translationMatrix);
+		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix4);
+		shaderVarsUniformBuffer.worldMatrix[3] = worldMatrix4;
+
+		//wall 3
+		GW::MATH::GVECTORF wall3Translation = { -0.5f, 0.0f, 0.0f, 1.0f };
+		rotationMatrix = GW::MATH::GIdentityMatrixF;
+		translationMatrix = GW::MATH::GIdentityMatrixF;
+		interfaceProxy.RotateYGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		interfaceProxy.TranslateGlobalF(translationMatrix, wall3Translation, translationMatrix);
+		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix5);
+		shaderVarsUniformBuffer.worldMatrix[4] = worldMatrix5;
+
+		//wall 4
+		GW::MATH::GVECTORF wall4Translation = { 0.5f, 0.0f, 0.0f, 1.0f };
+		rotationMatrix = GW::MATH::GIdentityMatrixF;
+		translationMatrix = GW::MATH::GIdentityMatrixF;
+		interfaceProxy.RotateYGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(-90), rotationMatrix);
+		interfaceProxy.TranslateGlobalF(translationMatrix, wall4Translation, translationMatrix);
+		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix6);
+		shaderVarsUniformBuffer.worldMatrix[5] = worldMatrix6;
 	}
 
 	void initializePerspectiveMatrix()
