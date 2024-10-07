@@ -127,6 +127,12 @@ public:
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
 		shaderVarsUniformBuffer.worldMatrix[0] = worldMatrix1;
 
+		//ceiling
+		GW::MATH::GVECTORF ceilingTranslation = { 0.0f, 0.5f, 0.0f, 1.0f };
+		translationMatrix = GW::MATH::GIdentityMatrixF;
+		interfaceProxy.TranslateGlobalF(translationMatrix, ceilingTranslation, worldMatrix2);
+		shaderVarsUniformBuffer.worldMatrix[1] = worldMatrix2;
+
 		// Wall 1 (Back)
 		GW::MATH::GVECTORF wall1Translation = { 0.0f, 0.0f, -0.5f, 1.0f };
 		translationMatrix = GW::MATH::GIdentityMatrixF;
