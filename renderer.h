@@ -669,7 +669,7 @@ public:
 		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &descriptorSets, 0, 0);
 
 		// TODO: Part 3g
-		vkCmdDraw(commandBuffer, 104, 1, 0, 0); // TODO: Part 1b 
+		vkCmdDraw(commandBuffer, 104, 6, 0, 0); // TODO: Part 1b 
 	}
 
 	// TODO: Part 4b
