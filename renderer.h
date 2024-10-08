@@ -732,14 +732,13 @@ public:
 		interfaceProxy.TranslateLocalF(viewCopy, translate, viewCopy);
 
 		// TODO: Part 4f
-		//Thumb_Speed = PI * Seconds_Passed_Since_Last_Frame
-		//Total_Pitch = FOV * MOUSE_Y_DELTA / SCREEN_HEIGHT + RIGHT_STICK_Y_AXIS_STATE * -Thumb_Speed
-		//PitchMatrix(Total_Pitch)
-		//Camera = MatrixMultiplication(PitchMatrix, Camera)
+		bool focused;
+		win.IsFocus(focused);
+
 		unsigned int height;
 		win.GetClientHeight(height);
 
-		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS) 
+		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS || !focused) 
 		{
 			states[0] = states[1] = 0;
 			states[2] = states[3] = 0;
