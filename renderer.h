@@ -70,7 +70,7 @@ class Renderer
 	VkDescriptorPool descriptorPool = nullptr;
 
 	// TODO: Part 2g
-	VkDescriptorSet descriptorSets = nullptr;
+	std::vector<VkDescriptorSet> descriptorSets = {};
 
 	// TODO: Part 3c
 	GW::MATH::GMATRIXF leftHandedPerspectiveMatrix = GW::MATH::GIdentityMatrixF;
@@ -301,7 +301,7 @@ private:
 
 		VkDescriptorPoolCreateInfo descriptorPoolInfo = {};
 		descriptorPoolInfo.flags = 0;
-		descriptorPoolInfo.maxSets = uniformBufferHandle.size();;
+		descriptorPoolInfo.maxSets = uniformBufferHandle.size();
 		descriptorPoolInfo.pNext = nullptr;
 		descriptorPoolInfo.poolSizeCount = 1;
 		descriptorPoolInfo.pPoolSizes = &poolSize;
@@ -320,30 +320,38 @@ private:
 		descriptorAllocateInfo.pSetLayouts = &descriptorSetLayout;
 		descriptorAllocateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
 
-		vkAllocateDescriptorSets(device, &descriptorAllocateInfo, &descriptorSets);
+		descriptorSets.resize(uniformBufferHandle.size());
+
+		for (int i = 0; i < uniformBufferData.size(); i++)
+		{
+			vkAllocateDescriptorSets(device, &descriptorAllocateInfo, &descriptorSets[i]);
+		}
 	}
 
 	//part 2h
 	void linkDescriptorSetUniformBuffer()
 	{
-		VkDescriptorBufferInfo descriptorBuffer = {};
-		descriptorBuffer.buffer = uniformBufferHandle[0];
-		descriptorBuffer.offset = 0;
-		descriptorBuffer.range = sizeof(shaderVars);
+		for (int i = 0; i < uniformBufferData.size(); i++)
+		{
+			VkDescriptorBufferInfo descriptorBuffer = {};
+			descriptorBuffer.buffer = uniformBufferHandle[i];
+			descriptorBuffer.offset = 0;
+			descriptorBuffer.range = sizeof(shaderVars);
 
-		VkWriteDescriptorSet writeDescriptor = {};
-		writeDescriptor.descriptorCount = 1;
-		writeDescriptor.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-		writeDescriptor.dstArrayElement = 0;
-		writeDescriptor.dstBinding = 0;
-		writeDescriptor.dstSet = descriptorSets;
-		writeDescriptor.pBufferInfo = &descriptorBuffer;
-		writeDescriptor.pImageInfo = nullptr;
-		writeDescriptor.pNext = nullptr;
-		writeDescriptor.pTexelBufferView = nullptr;
-		writeDescriptor.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+			VkWriteDescriptorSet writeDescriptor = {};
+			writeDescriptor.descriptorCount = 1;
+			writeDescriptor.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+			writeDescriptor.dstArrayElement = 0;
+			writeDescriptor.dstBinding = 0;
+			writeDescriptor.dstSet = descriptorSets[i];
+			writeDescriptor.pBufferInfo = &descriptorBuffer;
+			writeDescriptor.pImageInfo = nullptr;
+			writeDescriptor.pNext = nullptr;
+			writeDescriptor.pTexelBufferView = nullptr;
+			writeDescriptor.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
 
-		vkUpdateDescriptorSets(device, 1, &writeDescriptor, 0, nullptr);
+			vkUpdateDescriptorSets(device, 1, &writeDescriptor, 0, nullptr);
+		}
 	}
 
 	void CompileShaders()
@@ -670,7 +678,9 @@ public:
 		SetUpPipeline(commandBuffer);
 
 		// TODO: Part 2i // TODO: Part 4y;
-		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &descriptorSets, 0, 0);
+		uint32_t activeImage;
+		vlk.GetSwapchainCurrentImage(activeImage);
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &descriptorSets[activeImage], 0, 0);
 
 		// TODO: Part 3g
 		vkCmdDraw(commandBuffer, 104, 6, 0, 0); // TODO: Part 1b 
