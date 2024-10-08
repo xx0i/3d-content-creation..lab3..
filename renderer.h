@@ -167,7 +167,7 @@ public:
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GVECTORF wall4Translation = { 0.5f, 0.0f, 0.0f, 1.0f };
-		interfaceProxy.RotateYGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(-45), rotationMatrix);
+		interfaceProxy.RotateYGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(-135), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall4Translation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix6);
 		shaderVarsUniformBuffer.worldMatrix[5] = worldMatrix6;
