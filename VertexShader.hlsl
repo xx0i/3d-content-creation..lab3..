@@ -19,7 +19,7 @@ cbuffer shaderVars
 float4 main(VERTEX input : POSITION, uint matrixIndex : SV_InstanceID) : SV_POSITION
 {
 	// TODO: Part 2i
-    matrix result = mul(viewMatrix, worldMatrix[matrixIndex]);
+    matrix result = mul(worldMatrix[matrixIndex], viewMatrix);
 	// TODO: Part 3b
    // result = mul(result, perspectiveMatrix);
     input.pos = mul(input.pos, result);
