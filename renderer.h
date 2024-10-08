@@ -732,13 +732,10 @@ public:
 		interfaceProxy.TranslateLocalF(viewCopy, translate, viewCopy);
 
 		// TODO: Part 4f
-		bool focused;
-		win.IsFocus(focused);
-
 		unsigned int height;
 		win.GetClientHeight(height);
 
-		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS || !focused) 
+		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS) 
 		{
 			states[0] = states[1] = 0;
 			states[2] = states[3] = 0;
