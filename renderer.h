@@ -719,6 +719,18 @@ public:
 		viewCopy.row4.y += static_cast<float>(yChange * cameraSpeed * elapsedTime);
 
 		// TODO: Part 4e
+		const float perFrameSpeed = cameraSpeed * elapsedTime;
+		input.GetState(G_KEY_W, states[0]);
+		input.GetState(G_KEY_S, states[1]);
+		input.GetState(G_KEY_A, states[2]);
+		input.GetState(G_KEY_D, states[3]);
+		controller.GetState(0, G_LY_AXIS, states[4]);
+		controller.GetState(0, G_LX_AXIS, states[5]);
+		float zChange = states[0] - states[1] + states[4];
+		float xChange = states[2] - states[3] + states[5];
+		GW::MATH::GVECTORF translate{xChange * perFrameSpeed, 0, zChange * perFrameSpeed};
+		interfaceProxy.TranslateLocalF(viewCopy, translate, viewCopy);
+
 		// TODO: Part 4f
 		// TODO: Part 4g
 
