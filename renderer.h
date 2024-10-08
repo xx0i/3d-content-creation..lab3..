@@ -304,12 +304,12 @@ private:
 	void initializeDescriptorPool()
 	{
 		VkDescriptorPoolSize poolSize = {};
-		poolSize.descriptorCount = 1;
+		poolSize.descriptorCount = uniformBufferHandle.size();
 		poolSize.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
 		VkDescriptorPoolCreateInfo descriptorPoolInfo = {};
 		descriptorPoolInfo.flags = 0;
-		descriptorPoolInfo.maxSets = 1;
+		descriptorPoolInfo.maxSets = uniformBufferHandle.size();;
 		descriptorPoolInfo.pNext = nullptr;
 		descriptorPoolInfo.poolSizeCount = 1;
 		descriptorPoolInfo.pPoolSizes = &poolSize;
