@@ -136,7 +136,7 @@ public:
 		//wall 1
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF wall1Translation = { -0.25f, 0.0f, 0.0f, 1.0f };
+		GW::MATH::GVECTORF wall1Translation = { 0.0f, 0.5f, 0.0f, 1.0f };
 		interfaceProxy.RotateYLocalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall1Translation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix3);
