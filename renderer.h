@@ -95,7 +95,7 @@ public:
 		initializeViewMatrix();
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		// TODO: Part 3c
-		initializePerspectiveMatrix();
+		//initializePerspectiveMatrix();
 		shaderVarsUniformBuffer.perspectiveMatrix = leftHandedPerspectiveMatrix;
 		// TODO: Part 3d
 		// TODO: Part 4a
@@ -106,20 +106,10 @@ public:
 
 	void initializeViewMatrix()
 	{
-		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
-		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
-		interfaceProxy.RotateZGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(25), translationMatrix);
-		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
-
-		interfaceProxy.InverseF(translationMatrix, viewMatrix);
-
-
-		//GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
-		//GW::MATH::GVECTORF targetPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
-		//GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f };
-		//interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
+		GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f };
+		GW::MATH::GVECTORF targetPosition = { 0.0f, -0.5f, 0.0f, };
+		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f };
+		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 	}
 
