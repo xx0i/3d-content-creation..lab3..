@@ -21,7 +21,7 @@ float4 main(VERTEX input : POSITION, uint matrixIndex : SV_InstanceID) : SV_POSI
 	// TODO: Part 2i
     matrix result = mul(viewMatrix, worldMatrix[matrixIndex]);
 	// TODO: Part 3b
-    result = mul(result, perspectiveMatrix);
+   // result = mul(result, perspectiveMatrix);
     input.pos = mul(input.pos, result);
 	// TODO: Part 3g
 	return input.pos;
