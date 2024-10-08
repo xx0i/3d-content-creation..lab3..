@@ -89,7 +89,7 @@ public:
 		UpdateWindowDimensions();
 		GetHandlesFromSurface();
 
-		//part 2b -> doc said it was supposed to be in the renderer function but that didn't work but it works here -> waiting for confirmation from prof/lab instructor
+		//part 2b -> doc said it was supposed to be in the renderer function but that didnt work but it works here ^^
 		initializeWorldMatrices();
 		// TODO: Part 3a
 		initializeViewMatrix();
@@ -106,11 +106,15 @@ public:
 
 	void initializeViewMatrix()
 	{
+		uint32_t currentImage;
+		vlk.GetSwapchainCurrentImage(currentImage);
+
 		GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f };
 		GW::MATH::GVECTORF targetPosition = { 0.0f, -0.5f, 0.0f };
 		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f };
 		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
+		GvkHelper::write_to_buffer(device, uniformBufferData[currentImage], &shaderVarsUniformBuffer, sizeof(shaderVars));
 	}
 
 	void initializeWorldMatrices()
@@ -272,7 +276,7 @@ private:
 	{
 		unsigned int bufferSize = sizeof(shaderVars);  //size of the uniform data
 
-		//gets the number of active frames i think
+		//gets the number of active frames
 		uint32_t imageCount;
 		vlk.GetSwapchainImageCount(imageCount);
 
