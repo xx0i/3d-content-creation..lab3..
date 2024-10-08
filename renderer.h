@@ -734,8 +734,9 @@ public:
 		// TODO: Part 4f
 		unsigned int height;
 		win.GetClientHeight(height);
-
-		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS) 
+		bool focused;
+		win.IsFocus(focused);
+		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS || !focused)
 		{
 			states[0] = states[1] = 0;
 		}
