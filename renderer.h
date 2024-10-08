@@ -708,7 +708,7 @@ public:
 		// TODO: Part 4d
 		float yChange = 0.0f;
 		float states[6] = { 0, 0, 0, 0, 0, 0 };
-		const float cameraSpeed = 0.3f;
+		const float cameraSpeed = 0.03f;
 
 		input.GetState(G_KEY_SPACE, states[0] = 0);
 		input.GetState(G_KEY_LEFTSHIFT, states[1] = 0);
