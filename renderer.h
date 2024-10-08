@@ -120,7 +120,7 @@ public:
 			GW::MATH::GVECTORF targetPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 			// Up vector, pointing up in the world space
-			GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f };
+			GW::MATH::GVECTORF upVector = { 0.0f, -1.0f, 0.0f, 0.0f };
 
 			// Use the LookAtLHF function to create the view matrix
 			interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
