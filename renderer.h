@@ -734,12 +734,10 @@ public:
 		// TODO: Part 4f
 		unsigned int height;
 		win.GetClientHeight(height);
-		bool focused;
-		win.IsFocus(focused);
-		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS || !focused)
+
+		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS) 
 		{
-			states[0] = 0;
-			states[1] = 0;
+			states[0] = states[1] = 0;
 		}
 		controller.GetState(0, G_RY_AXIS, states[2]);
 		controller.GetState(0, G_RX_AXIS, states[3]);
@@ -752,16 +750,22 @@ public:
 		interfaceProxy.MultiplyMatrixF(pitchMatrix, viewCopy, viewCopy);
 
 		// TODO: Part 4g
-		/*unsigned int width;
-		win.GetClientWidth(width);
-		float ar = width / static_cast<float>(height);
-		float yaw = G_PI / 2 * ar * states[0] / width + states[3] * thumbSpeed;
-		GW::MATH::GMATRIXF yawMatrix;
-		identity = GW::MATH::GIdentityMatrixF;
-		interfaceProxy.RotateYLocalF(identity, yaw, yawMatrix);
-		GW::MATH::GVECTORF pos = viewCopy.row4;
-		interfaceProxy.MultiplyMatrixF(viewCopy, yawMatrix, viewCopy);
-		viewCopy.row4 = pos;*/
+		//Total_Yaw = FOV * AR * MOUSE_X_DELTA / SCREEN_WIDTH + RIGHT_STICK_X_AXIS_STATE * Thumb_Speed
+		//YawMatrix(Total_Yaw)
+		//Camera.SavePosition()
+		//Camera = MatrixMultiplication(Camera, YawMatrix)
+		//Camera.RestorePosition()
+		unsigned width;
+		//_window.GetClientWidth(width);
+		//double ar = (width / static_cast<double>(height));
+		//double Yaw = G_PI / 2 * ar * states[0] / width + states[3] * ThumbSpeed;
+		//GW::MATH::GMATRIXF mYaw;
+		//GW::MATH::GMatrix::RotateYLocalF(GW::MATH::GIdentityMatrixF, Yaw, mYaw);
+		//GW::MATH::GVECTORF pos = cam.row4;
+		//GW::MATH::GMatrix::MultiplyMatrixF(cam, mYaw, cam);
+		//cam.row4 = pos;
+		//GW::MATH::GMatrix::InverseF(cam, view);
+		float yaw = G_PI / 2 * states[1];
 
 		interfaceProxy.InverseF(viewCopy, viewMatrix);
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
