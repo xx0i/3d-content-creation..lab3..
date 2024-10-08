@@ -694,7 +694,7 @@ public:
 	}
 
 	// TODO: Part 4b
-	GW::MATH::GMATRIXF updateCamera()
+	void updateCamera()
 	{
 		float elapsedTime = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - startTime).count();
 
@@ -723,7 +723,8 @@ public:
 		// TODO: Part 4g
 
 		interfaceProxy.InverseF(viewCopy, viewMatrix);
-		return viewMatrix;
+		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
+		GvkHelper::write_to_buffer(device, uniformBufferData[currentImage], &shaderVarsUniformBuffer, sizeof(shaderVars));
 	}
 
 private:
