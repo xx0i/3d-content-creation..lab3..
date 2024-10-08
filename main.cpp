@@ -12,6 +12,7 @@
 // TODO: Part 2a
 #define GATEWARE_ENABLE_MATH 
 // TODO: Part 4a
+#define GATEWARE_ENABLE_INPUT
 
 // With what we want & what we don't defined we can include the API
 #include "Gateware.h"
@@ -61,6 +62,7 @@ int main()
 				if (+vulkan.StartFrame(2, clrAndDepth))
 				{
 					// TODO: Part 4b
+					renderer.updateCamera();
 					renderer.Render();
 					vulkan.EndFrame(true);
 				}

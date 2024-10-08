@@ -76,6 +76,9 @@ class Renderer
 	GW::MATH::GMATRIXF leftHandedPerspectiveMatrix = GW::MATH::GIdentityMatrixF;
 	// TODO: Part 3d
 	// TODO: Part 4a
+	GW::INPUT::GInput input;
+	GW::INPUT::GController controller;
+	std::chrono::high_resolution_clock::time_point startTime;
 
 public:
 	Renderer(GW::SYSTEM::GWindow _win, GW::GRAPHICS::GVulkanSurface _vlk)
@@ -85,6 +88,7 @@ public:
 
 		// TODO: Part 2a
 		interfaceProxy.Create();
+		startTime = std::chrono::high_resolution_clock::now();
 		// TODO: Part 2e
 		UpdateWindowDimensions();
 		GetHandlesFromSurface();
@@ -99,6 +103,9 @@ public:
 		shaderVarsUniformBuffer.perspectiveMatrix = leftHandedPerspectiveMatrix;
 		// TODO: Part 3d
 		// TODO: Part 4a
+		input.Create(win);
+		controller.Create();
+
 		createDescriptorLayout();
 		InitializeGraphics();
 		BindShutdownCallback();
@@ -113,8 +120,8 @@ public:
 		GW::MATH::GVECTORF targetPosition = { 0.0f, -0.5f, 0.0f };
 		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f };
 		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
-		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
-		GvkHelper::write_to_buffer(device, uniformBufferData[currentImage], &shaderVarsUniformBuffer, sizeof(shaderVars));
+		//shaderVarsUniformBuffer.viewMatrix = viewMatrix;
+		//GvkHelper::write_to_buffer(device, uniformBufferData[currentImage], &shaderVarsUniformBuffer, sizeof(shaderVars));
 	}
 
 	void initializeWorldMatrices()
@@ -687,11 +694,38 @@ public:
 	}
 
 	// TODO: Part 4b
-	// TODO: Part 4c
-	// TODO: Part 4d
-	// TODO: Part 4e
-	// TODO: Part 4f
-	// TODO: Part 4g
+	void updateCamera()
+	{
+		float elapsedTime = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - startTime).count();
+
+		// TODO: Part 4c
+		GW::MATH::GMATRIXF viewCopy {};
+		interfaceProxy.InverseF(viewMatrix, viewCopy);
+
+		uint32_t currentImage;
+		vlk.GetSwapchainCurrentImage(currentImage);
+
+		// TODO: Part 4d
+		float yChange = 0.0f;
+		float states[6] = { 0, 0, 0, 0, 0, 0 };
+		const float cameraSpeed = 0.3f;
+
+		input.GetState(G_KEY_SPACE, states[0] = 0);
+		input.GetState(G_KEY_LEFTSHIFT, states[1] = 0);
+		controller.GetState(0, G_RIGHT_TRIGGER_AXIS, states[2] = 0);
+		controller.GetState(0, G_LEFT_TRIGGER_AXIS, states[3] = 0);
+
+		yChange = states[0] - states[1] + states[2] - states[3];
+		viewCopy.row4.y += static_cast<float>(yChange * cameraSpeed * elapsedTime);
+
+		// TODO: Part 4e
+		// TODO: Part 4f
+		// TODO: Part 4g
+
+		interfaceProxy.InverseF(viewCopy, viewMatrix);
+		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
+		GvkHelper::write_to_buffer(device, uniformBufferData[currentImage], &shaderVarsUniformBuffer, sizeof(shaderVars));
+	}
 
 private:
 	VkCommandBuffer GetCurrentCommandBuffer()
