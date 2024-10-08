@@ -753,6 +753,14 @@ public:
 		// TODO: Part 4g
 		unsigned int width;
 		win.GetClientWidth(width);
+		win.IsFocus(focused);
+		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS || !focused)
+		{
+			states[0] = states[1] = 0;
+		}
+		controller.GetState(0, G_RY_AXIS, states[2]);
+		controller.GetState(0, G_RX_AXIS, states[3]);
+
 		float ar = width / height;
 		float yaw = G_PI / 2 * ar * states[0] / width + states[3] * thumbSpeed;
 		GW::MATH::GMATRIXF yawMatrix;
