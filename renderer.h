@@ -106,14 +106,26 @@ public:
 
 	void initializeViewMatrix()
 	{
-		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF translationVector = { 0.15f, -0.332f, -0.25f, 1.0f };
-		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(25), translationMatrix);
+		//GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
+		//GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
+		//interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
+		//interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(25), translationMatrix);
 
-		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
+		//interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
 
-		interfaceProxy.InverseF(translationMatrix, viewMatrix);
+		//interfaceProxy.InverseF(translationMatrix, viewMatrix);
+
+		// Step 1: Define the camera position
+		GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
+
+		// Step 2: Define the target position (the point the camera is looking at)
+		GW::MATH::GVECTORF targetPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
+
+		// Step 3: Define the up vector (world 'up')
+		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f }; // Y-axis is up
+
+		// Step 4: Create the view matrix using the look-at function
+		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
 	}
 
 	void initializeWorldMatrices()
@@ -139,26 +151,26 @@ public:
 		//wall 1
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF wall1Translation = { 0.0f, 0.0f, 0.5f, 1.0f };
-	//	interfaceProxy.RotateZGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		GW::MATH::GVECTORF wall1Translation = { 0.0f, -0.5f, 0.0f, 1.0f };
+		interfaceProxy.RotateZGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall1Translation, translationMatrix);
-		//interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix3);
-		shaderVarsUniformBuffer.worldMatrix[2] = translationMatrix;
+		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix3);
+		shaderVarsUniformBuffer.worldMatrix[2] = worldMatrix3;
 
 		//wall 2
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF wall2Translation = { 0.0f, 0.0f, -0.5f, 1.0f };
-		//interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		GW::MATH::GVECTORF wall2Translation = { 0.0f, -0.5f, 0.0f, 1.0f };
+		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall2Translation, translationMatrix);
-		//interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix4);
-		shaderVarsUniformBuffer.worldMatrix[3] = translationMatrix;
+		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix4);
+		shaderVarsUniformBuffer.worldMatrix[3] = worldMatrix4;
 
 		//wall 3
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF wall3Translation = { 0.5f, 0.0f, 0.0f, 1.0f };
-		interfaceProxy.RotateYGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		GW::MATH::GVECTORF wall3Translation = { 0.0f, -0.5f, 0.0f, 1.0f };
+		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall3Translation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix5);
 		shaderVarsUniformBuffer.worldMatrix[4] = worldMatrix5;
@@ -166,8 +178,8 @@ public:
 		//wall 4
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF wall4Translation = {-0.5f, 0.0f, 0.0f, 1.0f };
-		interfaceProxy.RotateYGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		GW::MATH::GVECTORF wall4Translation = { 0.0f, -0.5f, 0.0f, 1.0f };
+		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall4Translation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix6);
 		shaderVarsUniformBuffer.worldMatrix[5] = worldMatrix6;
