@@ -95,7 +95,7 @@ public:
 		initializeViewMatrix();
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		// TODO: Part 3c
-		initializePerspectiveMatrix();
+		//initializePerspectiveMatrix();
 		shaderVarsUniformBuffer.perspectiveMatrix = leftHandedPerspectiveMatrix;
 		// TODO: Part 3d
 		// TODO: Part 4a
@@ -119,8 +119,8 @@ public:
 		GW::MATH::GMATRIXF rotationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GVECTORF floorTranslation = { 0.0f, -0.5f, 0.0f, 1.0f };
-		interfaceProxy.RotateXLocalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
-		interfaceProxy.TranslateGlobalF(translationMatrix, floorTranslation, translationMatrix);
+		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		interfaceProxy.TranslateLocalF(translationMatrix, floorTranslation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
 		shaderVarsUniformBuffer.worldMatrix[0] = worldMatrix1;
 
