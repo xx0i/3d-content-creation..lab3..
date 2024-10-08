@@ -111,7 +111,7 @@ public:
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
 		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(10), translationMatrix);
 
-		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
+		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(55), translationMatrix);
 
 		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 	}
