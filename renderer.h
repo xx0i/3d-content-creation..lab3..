@@ -114,7 +114,7 @@ public:
 		//interfaceProxy.InverseF(translationMatrix, viewMatrix);
 
 
-		GW::MATH::GVECTORF cameraPosition = { 0.0f, 0.0f, 0.0f, 0.0f };
+		GW::MATH::GVECTORF cameraPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
 		GW::MATH::GVECTORF targetPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
 		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f };
 		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
