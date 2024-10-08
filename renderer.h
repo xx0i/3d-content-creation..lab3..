@@ -756,6 +756,7 @@ public:
 		float ar = width / static_cast<float>(height);
 		float yaw = G_PI / 2 * ar * states[0] / width + states[3] * thumbSpeed;
 		GW::MATH::GMATRIXF yawMatrix;
+		identity = GW::MATH::GIdentityMatrixF;
 		interfaceProxy.RotateYLocalF(identity, yaw, yawMatrix);
 		GW::MATH::GVECTORF pos = viewCopy.row4;
 		interfaceProxy.MultiplyMatrixF(viewCopy, yawMatrix, viewCopy);
