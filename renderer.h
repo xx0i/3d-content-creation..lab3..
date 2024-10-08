@@ -121,8 +121,6 @@ public:
 		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f };
 		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
 		
-		viewMatrix = updateCamera();
-
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		GvkHelper::write_to_buffer(device, uniformBufferData[currentImage], &shaderVarsUniformBuffer, sizeof(shaderVars));
 	}
@@ -697,7 +695,7 @@ public:
 	}
 
 	// TODO: Part 4b
-	GW::MATH::GMATRIXF updateCamera()
+	void updateCamera()
 	{
 		float elapsedTime = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - startTime).count();
 
@@ -726,7 +724,8 @@ public:
 		// TODO: Part 4g
 
 		interfaceProxy.InverseF(viewCopy, viewMatrix);
-		return viewMatrix;
+		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
+		GvkHelper::write_to_buffer(device, uniformBufferData[currentImage], &shaderVarsUniformBuffer, sizeof(shaderVars));
 	}
 
 private:
