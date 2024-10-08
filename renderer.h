@@ -107,7 +107,7 @@ public:
 	void initializeViewMatrix()
 	{
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF translationVector = { 0.15f, -0.332f, -0.25f, 1.0f };
+		GW::MATH::GVECTORF translationVector = { /*0.15f, -0.332f, -0.25f, 1.0f*/0,0,0,0 };
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
 		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(35), translationMatrix);
 
