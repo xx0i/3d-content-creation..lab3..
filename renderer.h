@@ -125,9 +125,6 @@ public:
 		// Initialize the translation matrix
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
 
-		// Apply the translation to move the camera
-		interfaceProxy.TranslateGlobalF(translationMatrix, cameraPosition, translationMatrix);
-
 		// Now you can create the view matrix using the look-at function
 		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
