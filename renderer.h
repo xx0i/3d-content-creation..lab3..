@@ -114,10 +114,10 @@ public:
 		//interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
 
 		//interfaceProxy.InverseF(translationMatrix, viewMatrix);
-		GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
+		GW::MATH::GVECTORF cameraPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 		// Define the target position (where the camera is looking)
-		GW::MATH::GVECTORF targetPosition = { 0.0f, 0.0f, 0.0f, 1.0f }; // Looking at the origin
+		GW::MATH::GVECTORF targetPosition = { 0.25f, -0.125f, -0.25f, 1.0f }; // Looking at the origin
 
 		// Define the up vector (world 'up')
 		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f }; // Y-axis is up
