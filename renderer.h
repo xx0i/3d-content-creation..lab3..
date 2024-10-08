@@ -116,7 +116,7 @@ public:
 		//interfaceProxy.InverseF(translationMatrix, viewMatrix);
 
 		// Step 1: Define the camera position
-		GW::MATH::GVECTORF cameraPosition = { 0.0f, -0.5f, 0.0f, 1.0f };
+		GW::MATH::GVECTORF cameraPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 		// Step 2: Define the target position (the point the camera is looking at)
 		GW::MATH::GVECTORF targetPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
