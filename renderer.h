@@ -114,6 +114,7 @@ public:
 		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
 
 		interfaceProxy.InverseF(translationMatrix, viewMatrix);
+		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 
 
 		//GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
