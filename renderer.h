@@ -122,7 +122,7 @@ public:
 		GW::MATH::GVECTORF targetPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
 
 		// Step 3: Define the up vector (world 'up')
-		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f }; // Y-axis is up
+		GW::MATH::GVECTORF upVector = { 0.0f, -1.0f, 0.0f, 0.0f }; // Y-axis is up
 
 		// Step 4: Create the view matrix using the look-at function
 		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
