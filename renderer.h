@@ -732,7 +732,21 @@ public:
 		interfaceProxy.TranslateLocalF(viewCopy, translate, viewCopy);
 
 		// TODO: Part 4f
+		//Thumb_Speed = PI * Seconds_Passed_Since_Last_Frame
+		//Total_Pitch = FOV * MOUSE_Y_DELTA / SCREEN_HEIGHT + RIGHT_STICK_Y_AXIS_STATE * -Thumb_Speed
+		//PitchMatrix(Total_Pitch)
+		//Camera = MatrixMultiplication(PitchMatrix, Camera)
+		unsigned int height;
+		win.GetClientHeight(height);
+		float thumbSpeed = G_PI * elapsedTime;
+		float totalPitch = G_PI / 2 * states[1] / height + states[2] * -thumbSpeed;
+		GW::MATH::GMATRIXF pitchMatrix{};
+		GW::MATH::GMATRIXF identity = GW::MATH::GIdentityMatrixF;
+		interfaceProxy.RotateXLocalF(identity, totalPitch, pitchMatrix);
+		interfaceProxy.MultiplyMatrixF(pitchMatrix, viewCopy, viewCopy);
+
 		// TODO: Part 4g
+
 
 		interfaceProxy.InverseF(viewCopy, viewMatrix);
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
