@@ -751,7 +751,7 @@ public:
 		interfaceProxy.MultiplyMatrixF(pitchMatrix, viewCopy, viewCopy);
 
 		// TODO: Part 4g
-		unsigned int width;
+		/*unsigned int width;
 		win.GetClientWidth(width);
 		float ar = width / static_cast<float>(height);
 		float yaw = G_PI / 2 * ar * states[0] / width + states[3] * thumbSpeed;
@@ -760,7 +760,7 @@ public:
 		interfaceProxy.RotateYLocalF(identity, yaw, yawMatrix);
 		GW::MATH::GVECTORF pos = viewCopy.row4;
 		interfaceProxy.MultiplyMatrixF(viewCopy, yawMatrix, viewCopy);
-		viewCopy.row4 = pos;
+		viewCopy.row4 = pos;*/
 
 		interfaceProxy.InverseF(viewCopy, viewMatrix);
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
