@@ -106,21 +106,21 @@ public:
 
 	void initializeViewMatrix()
 	{
-		//GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		//GW::MATH::GVECTORF translationVector = { 0.15f, -0.332f, -0.25f, 1.0f };
-		//interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		//interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(25), translationMatrix);
+		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
+		GW::MATH::GVECTORF translationVector = { 0.15f, -0.332f, -0.25f, 1.0f };
+		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
+		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(25), translationMatrix);
 
-		//interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
+		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
 
-		//interfaceProxy.InverseF(translationMatrix, viewMatrix);
+		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 
 
-		GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
-		GW::MATH::GVECTORF targetPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
-		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f };
-		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
-		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
+		//GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
+		//GW::MATH::GVECTORF targetPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
+		//GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f };
+		//interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
+		//shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 	}
 
 	void initializeWorldMatrices()
@@ -130,7 +130,7 @@ public:
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
 		GW::MATH::GVECTORF floorTranslation = { 0.0f, -0.5f, 0.0f, 1.0f };
 		interfaceProxy.RotateXLocalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
-		interfaceProxy.TranslateGlobalF(translationMatrix, floorTranslation, translationMatrix);
+		interfaceProxy.TranslateLocalF(translationMatrix, floorTranslation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix1);
 		shaderVarsUniformBuffer.worldMatrix[0] = worldMatrix1;
 
