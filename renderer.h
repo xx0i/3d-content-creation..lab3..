@@ -727,7 +727,7 @@ public:
 		controller.GetState(0, G_LY_AXIS, states[4]);
 		controller.GetState(0, G_LX_AXIS, states[5]);
 		float zChange = states[0] - states[1] + states[4];
-		float xChange = states[2] - states[3] + states[5];
+		float xChange = states[3] - states[2] + states[5];
 		GW::MATH::GVECTORF translate{xChange * perFrameSpeed, 0, zChange * perFrameSpeed};
 		interfaceProxy.TranslateLocalF(viewCopy, translate, viewCopy);
 
