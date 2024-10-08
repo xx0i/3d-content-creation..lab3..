@@ -708,12 +708,12 @@ public:
 		// TODO: Part 4d
 		float yChange = 0.0f;
 		float states[6] = { 0, 0, 0, 0, 0, 0 };
-		const float cameraSpeed = 0.0001f;
+		const float cameraSpeed = 0.0003f;
 
-		input.GetState(G_KEY_SPACE, states[0] = 0);
-		input.GetState(G_KEY_LEFTSHIFT, states[1] = 0);
-		controller.GetState(0, G_RIGHT_TRIGGER_AXIS, states[2] = 0);
-		controller.GetState(0, G_LEFT_TRIGGER_AXIS, states[3] = 0);
+		input.GetState(G_KEY_SPACE, states[0]);
+		input.GetState(G_KEY_LEFTSHIFT, states[1]);
+		controller.GetState(0, G_RIGHT_TRIGGER_AXIS, states[2]);
+		controller.GetState(0, G_LEFT_TRIGGER_AXIS, states[3]);
 
 		yChange = states[0] - states[1] + states[2] - states[3];
 		viewCopy.row4.y += static_cast<float>(yChange * cameraSpeed * elapsedTime);
