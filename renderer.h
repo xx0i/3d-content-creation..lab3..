@@ -107,11 +107,11 @@ public:
 	void initializeViewMatrix()
 	{
 		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF translationVector = { 0.25f, -0.125f, -0.25f, 1.0f };
+		GW::MATH::GVECTORF translationVector = { 0.15f, -0.332f, -0.25f, 1.0f };
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(-45), translationMatrix);
+		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(25), translationMatrix);
 
-		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(26.565), translationMatrix);
+		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
 
 		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 	}
@@ -139,7 +139,8 @@ public:
 		//wall 1
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF wall1Translation = { 0.0f, 0.f, 0.5f, 1.0f };
+		GW::MATH::GVECTORF wall1Translation = { 0.0f, 0.0f, 0.5f, 1.0f };
+		interfaceProxy.RotateZGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(180), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall1Translation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix3);
 		shaderVarsUniformBuffer.worldMatrix[2] = worldMatrix3;
@@ -165,8 +166,8 @@ public:
 		//wall 4
 		rotationMatrix = GW::MATH::GIdentityMatrixF;
 		translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF wall4Translation = { 0.0f, -0.5f, 0.0f, 1.0f };
-		interfaceProxy.RotateXGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(90), rotationMatrix);
+		GW::MATH::GVECTORF wall4Translation = { 0.5f, 0.0f, 0.0f, 1.0f };
+		interfaceProxy.RotateYGlobalF(rotationMatrix, G_DEGREE_TO_RADIAN_F(-90), rotationMatrix);
 		interfaceProxy.TranslateGlobalF(translationMatrix, wall4Translation, translationMatrix);
 		interfaceProxy.MultiplyMatrixF(rotationMatrix, translationMatrix, worldMatrix6);
 		shaderVarsUniformBuffer.worldMatrix[5] = worldMatrix6;
