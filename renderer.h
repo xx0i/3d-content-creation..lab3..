@@ -95,7 +95,7 @@ public:
 		initializeViewMatrix();
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 		// TODO: Part 3c
-		//initializePerspectiveMatrix();
+		initializePerspectiveMatrix();
 		shaderVarsUniformBuffer.perspectiveMatrix = leftHandedPerspectiveMatrix;
 		// TODO: Part 3d
 		// TODO: Part 4a
@@ -111,8 +111,9 @@ public:
 		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
 		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(25), translationMatrix);
 		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
-		viewMatrix = translationMatrix;
+		interfaceProxy.InverseF(translationMatrix, viewMatrix);
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
+
 	}
 
 	void initializeWorldMatrices()
