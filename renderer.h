@@ -106,14 +106,31 @@ public:
 
 	void initializeViewMatrix()
 	{
-		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
-		GW::MATH::GVECTORF translationVector = { 0.15f, -0.332f, -0.25f, 1.0f };
-		interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
-		interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(25), translationMatrix);
-		interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
-		interfaceProxy.InverseF(translationMatrix, viewMatrix);
-		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
+		//GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
+		//GW::MATH::GVECTORF translationVector = { 0.15f, -0.332f, -0.25f, 1.0f };
+		//interfaceProxy.TranslateGlobalF(translationMatrix, translationVector, translationMatrix);
+		//interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(25), translationMatrix);
 
+		//interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(45), translationMatrix);
+
+		//interfaceProxy.InverseF(translationMatrix, viewMatrix);
+		GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
+
+		// Define the target position (where the camera is looking)
+		GW::MATH::GVECTORF targetPosition = { 0.0f, 0.0f, 0.0f, 1.0f }; // Looking at the origin
+
+		// Define the up vector (world 'up')
+		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f }; // Y-axis is up
+
+		// Initialize the translation matrix
+		GW::MATH::GMATRIXF translationMatrix = GW::MATH::GIdentityMatrixF;
+
+		// Apply the translation to move the camera
+		interfaceProxy.TranslateGlobalF(translationMatrix, cameraPosition, translationMatrix);
+
+		// Now you can create the view matrix using the look-at function
+		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
+		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 	}
 
 	void initializeWorldMatrices()
