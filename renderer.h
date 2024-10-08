@@ -738,6 +738,14 @@ public:
 		//Camera = MatrixMultiplication(PitchMatrix, Camera)
 		unsigned int height;
 		win.GetClientHeight(height);
+
+		if (input.GetMouseDelta(states[0] = 0, states[1] = 0)
+			!= GW::GReturn::SUCCESS) {
+			states[0] = states[1] = 0; // don't keep spinning
+		}
+		controller.GetState(0, G_RY_AXIS, states[2] = 0);
+		controller.GetState(0, G_RX_AXIS, states[3] = 0);
+
 		float thumbSpeed = G_PI * elapsedTime;
 		float totalPitch = G_PI / 2 * states[1] / height + states[2] * -thumbSpeed;
 		GW::MATH::GMATRIXF pitchMatrix{};
