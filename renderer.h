@@ -732,6 +732,10 @@ public:
 		interfaceProxy.TranslateLocalF(viewCopy, translate, viewCopy);
 
 		// TODO: Part 4f
+		//Thumb_Speed = PI * Seconds_Passed_Since_Last_Frame
+		//Total_Pitch = FOV * MOUSE_Y_DELTA / SCREEN_HEIGHT + RIGHT_STICK_Y_AXIS_STATE * -Thumb_Speed
+		//PitchMatrix(Total_Pitch)
+		//Camera = MatrixMultiplication(PitchMatrix, Camera)
 		unsigned int height;
 		win.GetClientHeight(height);
 
@@ -750,22 +754,7 @@ public:
 		interfaceProxy.MultiplyMatrixF(pitchMatrix, viewCopy, viewCopy);
 
 		// TODO: Part 4g
-		//Total_Yaw = FOV * AR * MOUSE_X_DELTA / SCREEN_WIDTH + RIGHT_STICK_X_AXIS_STATE * Thumb_Speed
-		//YawMatrix(Total_Yaw)
-		//Camera.SavePosition()
-		//Camera = MatrixMultiplication(Camera, YawMatrix)
-		//Camera.RestorePosition()
-		unsigned width;
-		//_window.GetClientWidth(width);
-		//double ar = (width / static_cast<double>(height));
-		//double Yaw = G_PI / 2 * ar * states[0] / width + states[3] * ThumbSpeed;
-		//GW::MATH::GMATRIXF mYaw;
-		//GW::MATH::GMatrix::RotateYLocalF(GW::MATH::GIdentityMatrixF, Yaw, mYaw);
-		//GW::MATH::GVECTORF pos = cam.row4;
-		//GW::MATH::GMatrix::MultiplyMatrixF(cam, mYaw, cam);
-		//cam.row4 = pos;
-		//GW::MATH::GMatrix::InverseF(cam, view);
-		float yaw = G_PI / 2 * states[1];
+
 
 		interfaceProxy.InverseF(viewCopy, viewMatrix);
 		shaderVarsUniformBuffer.viewMatrix = viewMatrix;
