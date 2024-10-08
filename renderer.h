@@ -112,13 +112,19 @@ public:
 		//interfaceProxy.RotateYGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(30), translationMatrix);
 		//interfaceProxy.RotateXGlobalF(translationMatrix, G_DEGREE_TO_RADIAN_F(60), translationMatrix);
 		//interfaceProxy.InverseF(translationMatrix, viewMatrix);
+		// 
+			// Define the camera position as recommended (0.25x, -0.125y, -0.25z)
+			GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
 
+			// Target position is the center of the grid (0, 0, 0)
+			GW::MATH::GVECTORF targetPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-		GW::MATH::GVECTORF cameraPosition = { 0.25f, -0.125f, -0.25f, 1.0f };
-		GW::MATH::GVECTORF targetPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
-		GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f };
+			// Up vector, pointing up in the world space
+			GW::MATH::GVECTORF upVector = { 0.0f, 1.0f, 0.0f, 0.0f };
 
-		interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
+			// Use the LookAtLHF function to create the view matrix
+			interfaceProxy.LookAtLHF(cameraPosition, targetPosition, upVector, viewMatrix);
+			shaderVarsUniformBuffer.viewMatrix = viewMatrix;
 	}
 
 	void initializeWorldMatrices()
