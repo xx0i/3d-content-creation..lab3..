@@ -742,6 +742,7 @@ public:
 		if (input.GetMouseDelta(states[0], states[1]) != GW::GReturn::SUCCESS) 
 		{
 			states[0] = states[1] = 0;
+			states[2] = states[3] = 0;
 		}
 		controller.GetState(0, G_RY_AXIS, states[2]);
 		controller.GetState(0, G_RX_AXIS, states[3]);
