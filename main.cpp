@@ -42,7 +42,7 @@ int main()
 			GW::SYSTEM::GWindow::Events q;
 			if (+e.Read(q) && q == GWindow::Events::RESIZE)
 				clrAndDepth[0].color.float32[2] += 0.01f; 
-			win.SetWindowName("Natalie Lubahn - Lab 3 - Vulkan - Part 3 Complete");
+			win.SetWindowName("Natalie Lubahn - Lab 3 - Vulkan - Part 4 Complete");
 			});
 		win.Register(msgs);
 #ifndef NDEBUG
